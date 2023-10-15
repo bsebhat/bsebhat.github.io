@@ -72,7 +72,7 @@ In order to enable shared memory, I shutdown the VM, switch to the "Virtual Hard
 If I changed this while the VM was running, I would still need to shut the VM down for the changes to be applied.
 
 #### Add New Filesystem Device To VM
-Next, I click the "Add Hardware" button to add a filesystem. For the `Driver:`, I use `virtiofs`. The `Source path:` I select the folder on my host computer that I want to share. I've already created it in my home directory, called "Shared". I click the `Browse..` button and then the `Browse Local` button and select the folder. In the `Target path:` I enter a name for the filesystem that I'll use in the VM, "mount_shared".
+Next, I click the "Add Hardware" button to add a filesystem. For the `Driver:`, I select [virtiofs](https://libvirt.org/kbase/virtiofs.html). The `Source path:` I select the folder on my host computer that I want to share. I've already created it in my home directory, called "Shared". I click the `Browse..` button and then the `Browse Local` button and select the folder. In the `Target path:` I enter a name for the filesystem that I'll use in the VM, "mount_shared".
 ![post-install-configuration-03](../post-install-configuration-03.png)
 
 #### Mount Shared Folder In VM
@@ -142,5 +142,5 @@ fi
 
 Now, when I run `ll`, it's like running `ls -alth`. If I think of other aliases, I'll add them to the `.bash_alias` file. I'll also keep a copy of that alias file in the host computer's shared folder in case I want to use it in other Linux or UNIX VMs that use bash.
 
-## Conclusion
-That's all I can think of for now. I'm going to use this as a "dynamic template", so if I think of other things I want to have when I clone this, I'll modify this `template-linux` VM. I'll also come back and update the packages. That way, I won't have to download and update new clone VMs in the future.
+## Clear bash History
+When I'm done working on a template VM, I like to clear the bash history with the commands `history -c && history -w`. Then, when I clone it and start working on the clone VM, if I look at the bash history I know it starts when it was created. But I don't think it's very necessary.
