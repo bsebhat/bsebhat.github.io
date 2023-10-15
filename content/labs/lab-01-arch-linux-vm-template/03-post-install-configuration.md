@@ -11,7 +11,7 @@ After the Arch Linux os has been installed, I'll add some commonly used programs
 `yay` is a great AUR helper I've been using. It's super easy to use, and allows you to search for packages.
 
 ### Download yay
-I usually follow the installation guide I read on tecmit [here](https://www.tecmint.com/install-yay-aur-helper-in-arch-linux-and-manjaro/). I download `yay`'s PKGBUILD build script to the `/opt` directory with `git clone`. But I haven't installed the `git` aur package yet.
+I usually follow the installation guide I read in a [tecmint blog post](https://www.tecmint.com/install-yay-aur-helper-in-arch-linux-and-manjaro/). I download `yay`'s PKGBUILD build script to the `/opt` directory with `git clone`. But I haven't installed the `git` aur package yet.
 
 So, I first install the `git` aur package using the `pacman` package manager:
 ```
