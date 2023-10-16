@@ -31,8 +31,4 @@ echo "title: \"$titleized_title\"" >> "$file_path"
 echo "date: $(date --iso-8601=seconds)" >> "$file_path"
 echo "---" >> "$file_path"
 
-# Open the new blog post in Vim
-vim "$file_path"
-
 echo "New Hugo blog post created at: $file_path"
-
