@@ -1,7 +1,7 @@
 ---
 title: 01 Create template-win11 VM
 type: docs
-prev: template-win11-vm
+prev: 02-template-win11-vm
 next: 02 Install OS
 ---
 

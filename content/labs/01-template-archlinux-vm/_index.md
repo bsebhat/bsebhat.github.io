@@ -1,5 +1,5 @@
 ---
-title: Lab 01 Template Arch Linux VM
+title: Lab 01 - Template Arch Linux VM
 type: docs
 next: 01-create-vm
 ---

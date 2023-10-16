@@ -1,5 +1,5 @@
 ---
-title: Lab 03 Vulnerable Web App
+title: Lab 03 - Vulnerable Web App
 type: docs
 next: 01-create-juiceshop-vm
 ---
@@ -10,7 +10,7 @@ next: 01-create-juiceshop-vm
 
 ## VM Lab Environment
 Here's a diagram of what I'll have in the lab:
-![vm lab diagram](../vulnerable-web-app/juiceshop-lab-diagram.png)
+![vm lab diagram](./juiceshop-lab-diagram.png)
 
 ### Virtual Machines
 I'm going to have three VMs.

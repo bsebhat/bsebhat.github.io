@@ -1,5 +1,5 @@
 ---
-title: Lab 02 Template Windows 11 VM
+title: Lab 02 - Template Windows 11 VM
 type: docs
 next: 01-create-template-win11-vm
 ---
