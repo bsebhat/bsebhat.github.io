@@ -1,8 +1,7 @@
-
 ---
 title: 01 Create VM
 type: docs
-prev: lab-01-arch-linux-vm-template
+prev: template-archlinux-vm
 next: Install OS
 ---
 

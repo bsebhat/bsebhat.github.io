@@ -1,6 +1,5 @@
-
 ---
-title: Lab 01 - Arch Linux VM Template
+title: Lab 01 Template Arch Linux VM
 type: docs
 next: 01-create-vm
 ---
@@ -30,5 +29,5 @@ So it will be a template VM, but in the broader sense. A dynamic VM template.
 I'm using the [virt-manager](https://virt-manager.org/) GUI for managing VMs. My host computer is Arch Linux, with the KDE Plasma windows manager. I also use the [libvirt](https://libvirt.org/) API to manage virtual networks.
 
 ### Virtual Networks
-I'm going to mostly use the default virtual network for most of my VMs. It has an IP address of `192.168.122.1`, and I modified it to have a DHCP range of `192.168.122.100` to `192.168.122.254`.
+I'm going to mostly use the default virtual network for most of my VM labs. It has an IP address of `192.168.122.1`, and I modified it to have a DHCP range of `192.168.122.100` to `192.168.122.254`.
 

@@ -1,6 +1,5 @@
-
 ---
-title: 03 Post-Install Configuration
+title: 03 Post-Install
 type: docs
 prev: 02 Install Arch Linux
 ---

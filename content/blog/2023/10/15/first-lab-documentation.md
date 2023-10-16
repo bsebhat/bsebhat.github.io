@@ -3,7 +3,7 @@ title: "First Lab Documentation"
 date: 2023-10-15T09:45:39-07:00
 ---
 
-I finished my first lab documentation. It's for [lab 01 - Arch Linux VM Template]({{< ref "/labs/lab-01-arch-linux-vm-template">}}).
+I finished my first lab documentation. It's for [Lab 01: Template Arch Linux VM]({{< ref "/labs/template-archlinux-vm">}}).
 
 I'm going to be honest. I think it sucks. I have been working on VM labs for almost two months, and taking notes in Obsidian. So I'm used to a lab note-taking process of:
 1. taking notes using markdown

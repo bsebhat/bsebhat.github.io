@@ -1,7 +1,6 @@
 ---
 title: Labs
 type: docs
-next: lab-01-arch-linux-vm-template
 ---
 
 ## What Labs?
