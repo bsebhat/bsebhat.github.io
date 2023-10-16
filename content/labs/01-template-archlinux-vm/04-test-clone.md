@@ -10,7 +10,7 @@ To test out the template, I'll clone it using the `virt-manager` program to crea
 ## Clone VM
 The clone VM initially has the same hostname but a different IP address. The `template-archlinux` VM had the IP address `192.168.122.121`, but the new `archlinux-clone` VM has an IP address of `192.168.122.136`.
 
-That's because the clone has the same files copied from the template, so the hostname hasn't changed. But the network interface was configured to use a DHCP service provided by the default network to get an IP address, and the new `archlinux-clone` VM has a different MAC address than the original `template-archlinux` VM. 
+It has the same hostname because the clone is a copy of the template, but the network interface device has a new MAC address. The interface was configured to use a DHCP service provided by the default network to get an IP address. So `archlinux-clone`'s new MAC address will give it a new DHCP leased from the default virtual network. 
 ![Clone VM](../Screenshot_20231015_120125.png)
 
 ## Change Clone Hostname
