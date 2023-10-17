@@ -1,7 +1,7 @@
 ---
-title: 04 Test Clone
+title: 05 Test Clone
 type: docs
-prev: 03 Post Install
+prev: 04 Use networkd
 ---
 
 To test out the template, I'll clone it using the `virt-manager` program to create a new VM.

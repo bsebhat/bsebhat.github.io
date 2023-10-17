@@ -1,31 +1,13 @@
 ---
-title: Lab 03 - Template Arch Linux Server
+title: 04 Use networkd
 type: docs
+prev: 03 Post Install
+next: 05 Test Clone
 ---
-
-## Intro
-This is just a short lab where I take the `tempate-archlinux` VM I made in [Lab 01](../01-template-archlinux-vm/) and clone it to create a server version that starts in console mode. I'll use it for VMs that just run servers, in case I want to add a server to a lab I'm working on.
 
 I'll use systemd-networkd to manage the network interface rather than NetworkManager. I could use NetworkManager without using the KDE Plasma window manager, just in console mode. But I like editing the Ethernet device configuration file rather than using the nmcli command line tool to change NetworkManager settings.
 
 With servers, I'll usually set a static IP, rather than getting an IP via DHCP. So I'll add a bash alias short cut for editing that file. I'll add other bash aliases that are commonly used when managing servers.
-
-## Create template-archlinux-server VM
-I clone the `template-archlinux` VM to create a `template-archlinux-server` VM.
-![clone server](./clone-server.png)
-
-## Disable SDDM GUI Startup
-I'll just use the VM to start services, like web application. So I'll disable SDDM so it doesn't start X11 and just goes into terminal mode.
-```
-sudo systemctl disable sddm
-```
-Then, I restart to check that it just starts with the normal console.
-![console login](./console-login.png)
-
-## Increase Console Font Size
-I feel like the text is too small. I may want to read log data or something later on. So, I install the `terminus-font` package and set the font size for the console to the larger `ter-122b` with the command `setfont ter-122b`. I can try other larger sizes, like `ter-124b`, but I like that one. You can list the other terminus fonts with `ls /usr/share/kbd/consolefonts/ter-*`.
-
-To make that font the permenent console font, edit the `/etc/vconsole.conf` file and add a line saying `FONT=ter-122b`.
 
 ## Use systemd-networkd instead of NetworkManager
 I like using the `systemd-networkd` instead of NetworkManager if it's just console Linux. I can just edit a file, and I don't need to use the `NetworkManager` command line tool `nmcli`. It's not difficult to use, but it's just easier to edit a file.
@@ -96,6 +78,3 @@ In the template VM, I added an alias to the `.bashrc` file that opens vim to edi
 ```
 alias edit_net="sudo vim /etc/systemd/network/00-enp1s0.network"
 ```
-
-## Conclusion
-This was just creating a template VM from the other Arch Linux template VM, for when I want to have a server Linux VM and I don't need a desktop.

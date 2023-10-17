@@ -2,6 +2,7 @@
 title: 03 Post-Install
 type: docs
 prev: 02 Install Arch Linux
+next: 04 Use networkd
 ---
 
 After the Arch Linux os has been installed, I'll add some commonly used programs and settings. So that when I clone it, I won't have to take a few minutes and install it on the clone VM.
@@ -93,6 +94,13 @@ Next, I'll install the Google Chrome browser. I like using that to access web ad
 ```
 yay -S google-chrome
 ```
+
+## Increase Console Font Size
+If I want to disable SDDM and use the Arch Linux VM in console mode, the console font is too small. You can see this by using `Shift+F6` to leave the KDE windows manager and see the Linux console.
+
+So, I install the `terminus-font` package and set the font size for the console to the larger `ter-122b` with the command `setfont ter-122b`. I can try other larger sizes, like `ter-124b`, but I like that one. You can list the other terminus fonts with `ls /usr/share/kbd/consolefonts/ter-*`.
+
+To make that font the permenent console font, edit the `/etc/vconsole.conf` file and add a line saying `FONT=ter-122b`.
 
 ## Configure Window Manager
 I also want to configure the desktop so that applications I use a lot are on the taskbar. Like the Konsole terminal application.
