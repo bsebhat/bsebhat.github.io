@@ -13,7 +13,7 @@ You can find the ISO file at [https://archlinux.org/download](https://archlinux.
 
 ### Choose the "Local install media" option
 I'll be using the ISO image file.
-![create-vm-1](../create-1.png)
+![create-vm-1](../create-vm-1.png)
 
 ### Choose the ISO file
 Select the path the the downloaded ISO file. If the operating system can't be automatically detected, you will need to select the best available Linux distro type. But it should detect "Arch Linux".
