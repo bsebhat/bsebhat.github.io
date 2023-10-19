@@ -19,4 +19,7 @@ Again, this isn't a very good representation of how users interact with web serv
 
 It's also a very insecure way of allowing users to access the Juice Shop web application. Any user can access the `juiceshop` web server, and it's running SSH so the `sysadmin` can manage it.
 
+Here is a diagram I made using [draw.io](https://www.drawio.com/) showing how the VMs are currently setup:
+![vulnerable web app](../../diagrams/vulnerable-web-app.drawio.png)
+
 In the next lab, I'll add a firewall server VM called `pfsense` that should be a gateway between the `sysadmin` and `juiceshop` VMs and the users. This adds a layer of protection, and can be configured to restrict the types of network traffic that reaches the `juiceshop` VM.

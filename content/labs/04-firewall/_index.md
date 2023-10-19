@@ -5,6 +5,8 @@ next: 01-create-lan-network
 ---
 
 ## Intro
+Here's a diagram:
+![firewall](../diagrams/firewall.drawio.png)
 
 ## Why install a firewall?
 
