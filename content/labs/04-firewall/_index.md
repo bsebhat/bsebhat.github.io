@@ -15,6 +15,7 @@ In this lab, I want to add a firewall server VM called `pfsense` that will be a 
 I'll use the libvirt library to create an isolated virtual network called `LAN`. Here's what the lab will look like:
 ![firewall](../diagrams/firewall.drawio.png)
 
+TODO: finish documentation
 ## Why install a firewall?
 
 ## VM Lab Environment
