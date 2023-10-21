@@ -1,7 +1,6 @@
 ---
 title: 04 Test Clone
 type: docs
-prev: 03 Post Install
 ---
 
 ## Test

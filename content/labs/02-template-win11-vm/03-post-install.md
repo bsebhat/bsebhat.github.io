@@ -1,7 +1,6 @@
 ---
 title: 03 Post Install
 type: docs
-prev: 02 Install Windows 11
 ---
 
 After Windows 11 was installed on the `template-win11` VM, I can configure the template so that certain programs and settings are available on the clone VMs.

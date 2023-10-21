@@ -1,8 +1,6 @@
 ---
 title: 03 Post-Install
 type: docs
-prev: 02 Install Arch Linux
-next: 04 Use networkd
 ---
 
 After the Arch Linux os has been installed, I'll add some commonly used programs and settings. So that when I clone it, I won't have to take a few minutes and install it on the clone VM.

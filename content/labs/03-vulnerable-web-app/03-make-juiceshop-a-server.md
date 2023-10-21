@@ -1,8 +1,6 @@
 ---
 title: 03 Make juiceshop a "Server"
 type: docs
-prev: 02 Add sysadmin VM
-next: 04 Add juicefan VM
 ---
 
 I'm going to make some changes to how the Juice Shop web application is run on the `juiceshop` VM. I don't want `vmadmin`, a user with sudo privileges, to run it. It's located in the `/opt` directory, so I'll create a new non-sudo user named `juiceshop-admin` that owns the directory with the web application code: `/opt/juice-shop`. If the web application needs to be configured, the systems administrator can SSH into `juiceshop` with that non-sudo users and only have access to edit the files in that directory.

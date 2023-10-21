@@ -1,7 +1,5 @@
 ---
 title: 04 Connect juiceshop to LAN
-prev: 03 Connect sysadmin to LAN
-next: 05 pfsense Port Forwarding
 type: docs
 ---
 

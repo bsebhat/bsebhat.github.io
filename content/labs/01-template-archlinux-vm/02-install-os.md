@@ -1,8 +1,6 @@
 ---
 title: 02 Install OS
 type: docs
-prev: 01 Create VM
-next: 03 Post-Install
 ---
 
 Now that the VM has been created, I'll install the Arch Linux OS on it. I usually use the `archinstall` program after I've created partitions, following (some of) the [Arch Linux Wiki's Installation guide](https://wiki.archlinux.org/title/installation_guide).

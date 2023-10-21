@@ -1,7 +1,6 @@
 ---
 title: 02 Install Windows 11
 type: docs
-prev: 01 Create VM
 ---
 
 I follow the normal Windows 11 installation process, but I do change some things so that I don't need to use online accounts with this VM template.

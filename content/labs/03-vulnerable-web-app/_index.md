@@ -1,7 +1,6 @@
 ---
 title: Lab 03 - Vulnerable Web App
 type: docs
-next: 01-add-juiceshop-vm
 ---
 
 ## Intro

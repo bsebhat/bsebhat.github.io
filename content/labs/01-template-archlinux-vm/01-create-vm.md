@@ -1,8 +1,6 @@
 ---
 title: 01 Create VM
 type: docs
-prev: 01-template-archlinux-vm
-next: Install OS
 ---
 
 ## Download Arch Linux ISO file

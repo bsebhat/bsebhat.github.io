@@ -1,8 +1,6 @@
 ---
 title: 02 Add sysadmin VM
 type: docs
-prev: 01 Add juiceshop VM
-next: 03 Make juiceshop a "Server"
 ---
 
 I'm going to add another VM. This one will be an Arch Linux desktop called `sysadmin`. In this lab, I'm pretending there's a systems administrator that needs to manage the web application Juice Shop that's running on the `juiceshop` VM.
