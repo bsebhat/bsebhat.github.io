@@ -1,6 +1,6 @@
 ---
 title: "Thoughts on Lab Documentation"
-date: 2023-10-16T01:05:59-07:00
+date: 2023-10-21
 ---
 I'm still working on finishing my vm lab documentation. I've got most of the VM template labs, and the labs on creating a server to run a vulnerable web application and firewall server. I worked on the labs last month while I took rough notes, and I've been recreating the steps and adding them to this blog in a [lab section](../../../../../labs), adding screenshots and code snippets.
 
