@@ -5,7 +5,7 @@ next: 01-create-lan-network
 ---
 
 ## Intro
-In a previous lab, [Lab 03 - Vulnerable Web App](../03-vulnerable-web-app), I cloned some Linux and Windows 11 VMs to create three VMs: `juiceshop`, `sysadmin`, and `juicefan`. The `juiceshop` VM was a Linux server running the vulnerable web application by OWASP, [Juice Shop](https://owasp.org/www-project-juice-shop/). The `sysadmin` was a Linux desktop that managed the `juiceshop` server via SSH. And the `juicefan` was a Windows desktop with a customer using the Juice Shop web application on the `juiceshop` VM.
+In a previous lab, [Lab 01 - Web Server](../01-web-server), I cloned some Linux and Windows 11 VMs to create three VMs: `juiceshop`, `sysadmin`, and `juicefan`. The `juiceshop` VM is a Linux server running the vulnerable web application by OWASP called [Juice Shop](https://owasp.org/www-project-juice-shop/). The `sysadmin` was a Linux desktop that managed the `juiceshop` server via SSH. And the `juicefan` was a Windows desktop with a customer using the Juice Shop web application on the `juiceshop` VM.
 
 The VMs all had virtual network interface cards connected to the default virtual network. Here's a diagram of that setup at the end of the lab:
 ![vulnerable web app](../diagrams/vulnerable-web-app.drawio.png)

@@ -9,16 +9,13 @@ TODO: Short description of lab
 ### [Lab 02 - Firewall](../../labs/02-firewall)
 TODO: Short description of lab
 
-### [Lab 03 - Security Analysis](../../labs/03-security-analysis)
+### [Lab 03 - SIEM](../../labs/03-siem)
 TODO: Short description of lab
 
-### [Lab 04 - SIEM](../../labs/04-siem)
+### [Lab 04 - IDS](../../labs/04-ids)
 TODO: Short description of lab
 
-### [Lab 05 - IDS](../../labs/05-ids)
-TODO: Short description of lab
-
-### [Lab 06 - Active Directory](../../labs/06-active-directory)
+### [Lab 05 - Active Directory](../../labs/05-active-directory)
 TODO: Short description of lab
 
 ## What Do I Mean By "Labs"?

@@ -15,14 +15,12 @@ I'll choose "FreeBSD 13.1" as the operating system, because it wasn't automatica
 
 I give it 4 GB memory, 2 CPUs, and 30 GB storage. I name it `pfsense`.
 
-### TODO: describe using pfSense menu in console
-
-
-## Add NIC for LAN Network
-But before I begin installation, I want to add a second NIC for the `LAN` virtual network I created. So, I check the "Customize configuration" box and click "Finish".
+Before I begin installation, I want to add a second NIC for the `LAN` virtual network I created. So, I check the "Customize configuration" box and click "Finish". The next step will be the 
 ![pfsense customize](../pfsense-customize.png)
 
-I click o the "Add Hardware" button, and select "Network". Then, for "Network source", I select the `LAN` isolated network. I note that the MAC address for this NIC will be `52:54:00:90:1f:57`.
+## Add NIC for LAN Network
+
+I click on the "Add Hardware" button, and select "Network". Then, for "Network source", I select the `LAN` isolated network. I note that the MAC address for this NIC will be `52:54:00:90:1f:57`.
 ![pfsense add lan nic](../pfsense-add-lan-nic.png)
 
 Now, I click "Begin Installation"
