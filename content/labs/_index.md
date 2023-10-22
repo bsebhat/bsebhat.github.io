@@ -3,30 +3,22 @@ title: Labs
 type: docs
 ---
 
-## Current Labs
-
-### [Lab-01 Create Template Arch Linux VM](../../labs/01-template-archlinux-vm/) 
+### [Lab 01 - Vulnerable Web App](../../labs/01-vulnerable-web-app)
 TODO: Short description of lab
 
-### [Lab-02 Create Template Windows 11 VM](../../labs/02-template-win11-vm/)
+### [Lab 02 - Firewall](../../labs/02-firewall)
 TODO: Short description of lab
 
-### [Lab-03 Vulnerable Web App](../../labs/02-template-win11-vm/)
+### [Lab 03 - Security Analysis](../../labs/03-security-analysis)
 TODO: Short description of lab
 
-### [Lab-04 Firewall](../../labs/03-vulnerable-web-app/)
+### [Lab 04 - SIEM](../../labs/04-siem)
 TODO: Short description of lab
 
-### [Lab-05 Security Analysis](../../labs/05-security-analysis/)
+### [Lab 05 - IDS](../../labs/05-ids)
 TODO: Short description of lab
 
-### [Lab-06 SIEM](../../labs/06-siem/)
-TODO: Short description of lab
-
-### [Lab-07 Intrusion Detection System](../../labs/07-ids/)
-TODO: Short description of lab
-
-### [Lab-08 Active Directory](../../labs/08-active-directory/)
+### [Lab 06 - Active Directory](../../labs/06-active-directory)
 TODO: Short description of lab
 
 ## What Do I Mean By "Labs"?
