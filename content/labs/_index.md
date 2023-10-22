@@ -3,7 +3,7 @@ title: Labs
 type: docs
 ---
 
-### [Lab 01 - Vulnerable Web App](../../labs/01-vulnerable-web-app)
+### [Lab 01 - Web Server](../../labs/01-web-server)
 TODO: Short description of lab
 
 ### [Lab 02 - Firewall](../../labs/02-firewall)
