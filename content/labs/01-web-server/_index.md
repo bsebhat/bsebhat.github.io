@@ -1,6 +1,7 @@
 ---
 title: Lab 01 - Web Server
 type: docs
+next: 01-use-badjuicer-to-exploit
 ---
 
 ## Intro

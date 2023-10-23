@@ -272,6 +272,8 @@ conky.text = [[
 And change the background to plain black. This way, it's easier to see the hostname and IP address:
 ![post-install-configuration-06](../arch-linux-screenshots/post-install-configuration-06.png)
 
+To change the background color, add `own_window_colour = 'xxxxxx'` to the `conky.config`, with `xxxxxx` being the hex color code. The desktop background color can be changed with the windows manager settings.
+
 
 ## Add Bash Alias File
 I will be using the bash shell because...I'm just used to it. I want to add a separate bash alias file because I usually have commands that I keep running, and I might get tired of typing it.
