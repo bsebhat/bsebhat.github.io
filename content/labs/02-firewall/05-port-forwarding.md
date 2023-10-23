@@ -19,6 +19,3 @@ Now that port forwarding was setup, I use the `juicefan` VM to visit the `juices
 ![juicefan pfsense juiceshop](../juicefan-pfsense-juiceshop.png)
 
 So now the users can access the Juice Shop web application running on `juiceshop`, only it's through the `pfsense` firewall server.
-
-## Conclusion
-I used this lab to move the `juiceshop` and `sysadmin` VMs to a new isolated virtual network, `LAN`. I added a new VM, `pfsense`, running a pfSense firewall server and acting as a gateway between the customers/users on the `default` network and the `juiceshop` VM on the `LAN` internal network.
