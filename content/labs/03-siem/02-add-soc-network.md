@@ -49,3 +49,15 @@ Similar to the NIC I added for the `DMZ` network, I'll add one for this new `SOC
 
 ### DHCP
 I will enable DHCP server for the `SOC` interface, and have the DNS Resolver register DHCP leases. So when I add the `soc-analyst` desktop VM to the `SOC` network, it will get a DHCP leases IP address, and its domain name will be registered with the DNS Resolver. However, I will give the `splunk` server a static IP of `192.168.3.10`, and add ad its hostname mapping to the "Host Override" section of the DNS Resolver.
+
+## Current Network Topology
+Right now, we've just added an isolated network, and connected it to the `pfsense` server.
+
+This is what it previously looked like:
+![firewall dmz](../../../labs/diagrams/firewall-dmz.drawio.png)
+
+And now, the `SOC` isolated network was added:
+![firewall soc](../../../labs/diagrams/firewall-soc.drawio.png)
+
+Next, I'll add the `soc-analyst` desktop and `splunk` server to this network.
+

@@ -48,3 +48,15 @@ sudo systemctl disable sddm
 ## Add splunk hostname to pfSense DNS Resolver
 Because the `splunk` server doesn't use DHCP, I need to manually add the hostname to the pfSense DNS Resolver service:
 ![splunk hostname](../splunk-hostname.png)
+
+## Current Network Topology
+So now the `soc-analyst` desktop and `splunk` server are connected to the `SOC` network. The `soc-analyst` can access the `DMZ` to ssh into the `juiceshop` web server and install Splunk software that forwards logs to the `splunk` server.
+
+
+This is what the network previously looked like:
+![firewall soc-analyst](../../../labs/diagrams/firewall-soc-analyst.drawio.png)
+
+And now, with the `splunk` server added:
+![firewall splunk](../../../labs/diagrams/firewall-splunk.drawio.png)
+
+Next, I'm going to install the Splunk tool that forwards log data to the Splunk Server, Splunk Universal Forwarder.
