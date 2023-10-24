@@ -19,6 +19,23 @@ I'm thinking that, following the "least privilege principle", the `soc-analyst` 
 
 For communication between the `soc-analyst` in the `LAN` network and the `sysadmin` in the `LAN` network, a ticketing or email system should be added.
 
+## Create soc-analyst Account On juiceshop
+I want to allow the user on the `soc-analyst` desktop to investigate incidents, so I want them to have access to the `juiceshop` web server's `/opt/juice-shop` directory. I don't want to give them the password for the sudo user vmadmin, or the root account. So, from the `sysadmin` machine, I'll SSH into `juiceshop` and create a non-sudo user called "soc-analyst":
+```
+sudo useradd soc-analyst
+```
+
+I'll give it an initial password, but require that they change it next login:
+```
+sudo passwd soc-analyst
+sudo chage -d 0 soc-analyst
+```
+
+I add it to the juiceshop group, so it can access the `/opt/juice-shop` directory to investigate incidents:
+```
+sudo groupadd juiceshop soc-analyst
+```
+
 ## Current Network Topology
 I've added the `soc-analyst` desktop to the `SOC` network. It has access to the `DMZ` and `WAN` networks, so it can access the web server to investigate security incidents, and the internet to do research. But it doesn't have access to the `LAN` network.
 

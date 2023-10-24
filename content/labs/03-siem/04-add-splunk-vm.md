@@ -49,6 +49,13 @@ sudo systemctl disable sddm
 Because the `splunk` server doesn't use DHCP, I need to manually add the hostname to the pfSense DNS Resolver service:
 ![splunk hostname](../splunk-hostname.png)
 
+## Add soc-analyst User To Splunk Server
+The Splunk server has an admin user account, but I think I'll create a lower-privilege account for the `soc-analyst` to use. They just need to monitor the events, while the `sysadmin` can have the admin account to make important changes to Splunk.
+![add team](../add-team.png)
+
+While creating a user for `soc-analyst` to use, I choose the "user" [role](https://docs.splunk.com/Documentation/Splunk/9.1.1/Admin/Aboutusersandroles). This gives them the ability to search, and create and edit saved searches.
+![user role](../user-role.png)
+
 ## Current Network Topology
 So now the `soc-analyst` desktop and `splunk` server are connected to the `SOC` network. The `soc-analyst` can access the `DMZ` to ssh into the `juiceshop` web server and install Splunk software that forwards logs to the `splunk` server.
 
