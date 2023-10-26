@@ -41,6 +41,11 @@ type: docs
 ![](moss-user-login-option.png)
 ![](moss-login-password.png)
 
+give moss and the IT-Admin group sudo access
+/etc/sudoers.d/moss_sudo:
+moss@reynholm.local ALL=(ALL) ALL
 
+/etc/sudoers.d/it_admin_sudo:
+%it-admin@reynholm.local ALL=(ALL) ALL
 
 
