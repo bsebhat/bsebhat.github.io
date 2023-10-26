@@ -38,6 +38,8 @@ type: docs
 ![](moss-logout-vmadmin.png)
 ![](moss-login-domain.png)
 ![](moss-logged-in.png)
+![](moss-user-login-option.png)
+![](moss-login-password.png)
 
 
 

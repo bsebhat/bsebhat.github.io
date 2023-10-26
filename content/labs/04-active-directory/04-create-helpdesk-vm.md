@@ -24,9 +24,11 @@ Editing the `sssd.conf` file to add this:
 default_domain_suffix = REYNHOLM.local
 ```
 
+Allows the command `su moss` instead of requiring the full domain name `su moss@reynholm.local`.
+
 To give it-admin sudo access, create a sudoers file for the group at `/etc/sudoers.d/it_admin_sudo`:
 ```
-%it-admin ALL=(ALL) NOPASSWD:ALL
+%it-admin@reynholm.local ALL=(ALL) ALL
 ```
 
 Change permission for root:
