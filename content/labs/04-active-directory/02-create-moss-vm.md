@@ -41,9 +41,10 @@ type: docs
 ![](moss-user-login-option.png)
 ![](moss-login-password.png)
 
-give moss and the IT-Admin group sudo access
-/etc/sudoers.d/moss_sudo:
-moss@reynholm.local ALL=(ALL) ALL
+give IT-Staff sudo privilege to install packages and manage systemd services
+/etc/sudoers.d/it_staff_sudo:
+%it-staff@reynholm.local ALL=(ALL) NOPASSWD: /usr/bin/dnf install *
+%it-staff@reynholm.local ALL=(ALL) NOPASSWD: /bin/systemctl *
 
 /etc/sudoers.d/it_admin_sudo:
 %it-admin@reynholm.local ALL=(ALL) ALL

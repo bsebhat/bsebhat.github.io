@@ -1,5 +1,5 @@
 ---
-title: 05 Create nolan VM
+title: 01 Install osTicket On helpdesk
 type: docs
 ---
 

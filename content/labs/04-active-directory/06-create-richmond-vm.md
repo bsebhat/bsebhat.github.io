@@ -11,9 +11,12 @@ Create `richmond` VM with Fedora Linux (KDE).
 Going through the same process as `moss` VM.
 
 
-give moss and the IT-Admin group sudo access
-/etc/sudoers.d/nolan_sudo:
-nolan@reynholm.local ALL=(ALL) ALL
+give the IT-Staff limited sudo:
+
+/etc/sudoers.d/it_staff_sudo:
+%it-staff@reynholm.local ALL=(ALL) NOPASSWD: /usr/bin/dnf install *
+%it-staff@reynholm.local ALL=(ALL) NOPASSWD: /bin/systemctl *
+
 
 /etc/sudoers.d/it_admin_sudo:
 %it-admin@reynholm.local ALL=(ALL) ALL
