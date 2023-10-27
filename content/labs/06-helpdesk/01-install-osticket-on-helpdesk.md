@@ -184,13 +184,35 @@ systemctl restart httpd
 Go to the `http://helpdesk` web server, get redirected to `http://helpdesk/setup/install.php` to continue installation:
 ![](osticket-install-greeting.png)
 
-TODO: complete installation
+### Create Service User For Apache Web Server
+The next step requires giving the `httpd` service user ownership of the `/var/www/os_ticket/upload/include/ost-config.php` application configuration file. 
+
 Change file ownership for the `ost-config.php` copied earlier:
 ```
-chmod 0666 upload/include/ost-config.php
+sudo chmod 0666 upload/include/ost-config.php
 ```
 
+Because `helpdesk` is Fedora Server, it comes with SELinux (Security-Enhanced Linux) enabled by default. This restricts write access to the `ost-config.php` file.
 
+This requires an additional `chcon` command to change the context and allow the Apache system user to write to the file:
+```
+sudo chcon -t httpd_sys_rw_content_t /var/www/os_ticket/upload/include/ost-config.php
+```
 
+Next, the installation requires basic installation with helpdesk name, admin user, and database settings:
+![](osticket-basic-installation.png)
 
+![](osticket-admin-settings.png)
+![](osticket-db-settings.png)
 
+![](osticket-install-compete.png)
+
+## Admin Login
+The admin can login at `http://helpdesk/scp/login.php`:
+![](osticket-admin-login.png)
+
+There's a "staff control panel":
+![](osticket-staff-control-panel.png)
+
+And "admin control panel":
+![](osticket-admin-panel.png)
