@@ -12,9 +12,6 @@ TODO: Short description of lab
 ### [Lab 03 - SIEM](../../labs/03-siem)
 TODO: Short description of lab
 
-### [Lab 04 - Active Directory](../../labs/04-active-directory)
-TODO: Short description of lab
-
 ## What Do I Mean By "Labs"?
 Labs are just things I work on to help me learn new subjects. I have a hard time learning technical subjects without some hands on experience. They use virtual machines, operating systems, and software to create a small scale, simplified simulation of common cybersecurity and IT concepts. And I try to use them to understand security concepts.
 
