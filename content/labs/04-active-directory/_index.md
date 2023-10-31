@@ -1,7 +1,7 @@
 ---
-title: Lab 04 - Active Directory
+title: Lab 04 - Active Directory (incomplete)
 type: docs
-next: 01-create-ipfire
+next: 01-setup-lan-network
 ---
 
 ## Diagrams
@@ -15,14 +15,10 @@ Diagrams for the acme.local Active Directory domain
 
 
 ## Lab Steps
-1. create ipfire firewall VM, connecting LAN + WAN
-2. create linux-1 VM
-3. create acme-dc VM as Active Directory domain controller for acme.local
-4. create domain users
-5. join linux-1 to acme.local domain
-6. create windows-1 VM
-7. join windows-1 to acme.local domain
-8. create linux-2 VM
-9.  join linux-2 VM to acme.local domain
-10. test logging in different users in different machines
-11. summary
+1. Setup lan network
+2. Create acme-dc: Windows Server VM with Active Directory domain ACME.local
+3. Create ipfire firewall: Linux VM with ipfire firewall server
+4. Create domain users: create domain users and groups
+5. Add alpha VM: a VM with Windows 11 installed, joined to the ACME.local domain
+6. Add bravo VM: a VM with Fedora Linux installed, joined to the ACME.local domain
+7. Share files on acme-dc: Create folders and share them with different domain groups.

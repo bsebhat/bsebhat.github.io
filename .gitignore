@@ -3,5 +3,9 @@ public/
 resources/
 .hugo_build.lock
 
+# drawio temp files
+*.dtmp
+*.bkp
+
 # Editor
 .vscode/
