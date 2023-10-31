@@ -42,8 +42,7 @@ The `GET /rest/basket/7` is a request to get the `basket` with the id 7.
 
 When the user adds to their basket, their browser sends the `POST /api/BasketItems/` request, and a second later, they send a `GET /rest/basket/{basketId}` request for all the basket items in the basket with that `basketId`.
 
-If I change the Splunk search query from `index="juiceshop" *basket*` to `index="juiceshop" "POST /api/BasketItems/"`, I can see all the requests that created a `BasketItem`:
-![post basketitems](../post-basketitems.png)
+If I change the Splunk search query from `index="juiceshop" *basket*` to `index="juiceshop" "POST /api/BasketItems/"`, I can see all the requests that created a `BasketItem`.
 
 These HTTP events give the source IP address for all the `POST /api/BasketItems/` request (meaning, all the requests from users to put basket items in baskets) that the Juice Shop web application received.
 
