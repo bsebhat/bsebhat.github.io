@@ -72,7 +72,7 @@ Warning:
 
 Configure RED
 ![](20231101044356.png)
-![](20231101044450.png)
+**TODO: Add screenshot connecting NIC to RED/WAN using DHCP **
 
 Done
 ![](20231101044511.png)

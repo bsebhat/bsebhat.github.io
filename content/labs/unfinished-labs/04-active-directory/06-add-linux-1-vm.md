@@ -81,4 +81,11 @@ getent passwd amy
 
 I can login with this domain user.
 
-Click "not listed", then login as amy@ACME.local (case sensitive). Now, I'm logged in as the domain user amy.
+Click "not listed", then login as amy@ACME.local (case sensitive). Now, I'm logged in as the domain user amy. 
+
+The `linux-1` computer shows up in the "Computers" folder.
+![](20231102132038.png)
+
+I move the `linux-1` computer into the IT-Department organization unit.
+![](20231102132153.png)
+
