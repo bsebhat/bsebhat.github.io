@@ -57,6 +57,8 @@ disable SELinux context for nextcloud directory
 chcon -R -t httpd_sys_content_t /var/www/html/nextcloud
 ```
 
+
+
 Go to the intranet website, there's an error about access to the config directory
 ![](20231107094103.png)
 
@@ -113,3 +115,18 @@ The config.php was modified by the installation.
 
 Next, I'll use the admin account to setup LDAP integration with the Active Directory domain controller.
 
+
+
+from https://docs.nextcloud.com/server/latest/admin_manual/installation/selinux_configuration.html#
+SELinux settings commands for directories in /var/www/html/nextcloud:
+```
+chcon -R -t httpd_sys_content_t /var/www/html/nextcloud/config
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/data(/.*)?'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/config(/.*)?'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/apps(/.*)?'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/.htaccess'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/.user.ini'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/html/nextcloud/3rdparty/aws/aws-sdk-php/src/data/logs(/.*)?'
+
+restorecon -Rv '/var/www/html/nextcloud/'
+```
