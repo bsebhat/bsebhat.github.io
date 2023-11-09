@@ -67,3 +67,11 @@ add tom to office-staff
 tom is included in NextCloud
 ![](20231108200624.png)
 
+create a new Windows 11 VM called win-3, join it to the domain, and login as tom
+![](20231109034254.png)
+![](20231109034316.png)
+
+open a browser, go to the NextCloud app running on http://intranet.acme.local, and login as tom
+![](20231109034514.png)
+![](20231109034614.png)
+
