@@ -48,7 +48,7 @@ start apache http server now
 systemctl enable --now httpd
 ```
 Check the test page at http://intranet.acme.local
-![](20231107090646.png)
+![](../20231107090646.png)
 
 
 install mariadb client+server

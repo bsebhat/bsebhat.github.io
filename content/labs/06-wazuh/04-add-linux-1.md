@@ -3,17 +3,17 @@ title: 04 Add linux-1
 type: docs
 ---
 
-![](20231114200929.png)
+![](../20231114200929.png)
 
-![](20231114201016.png)
+![](../20231114201016.png)
 
 change hostname to linux-1.abc.local
 
 use domain controller as DNS
-![](20231114201231.png)
+![](../20231114201231.png)
 
 test with nslookup abc-dc
-![](20231114201508.png)
+![](../20231114201508.png)
 
 install adcli, authselect, oddjob, and sssd packages
 
@@ -74,23 +74,23 @@ Check if a domain user can be id'd
 ```
 id adam
 ```
-![](20231114202244.png)
+![](../20231114202244.png)
 
 create a sudo file /etc/sudoers.d/it_admin_sudo, giving the abc.local domain group IT-Admin (just user adam) to have full sudo privileges
 ```
  %it-admin@abc.local ALL=(ALL) ALL
 ```
 Log out and login as adam
-![](20231114203021.png)
-![](20231114203123.png)
+![](../20231114203021.png)
+![](../20231114203123.png)
 
 change desktop wallpaper
-![](20231114203627.png)
+![](../20231114203627.png)
 
 use browser to use pfsense webConfigurator
-![](20231114203744.png)
+![](../20231114203744.png)
 
-![](20231114203830.png)
-![](20231114203937.png)
+![](../20231114203830.png)
+![](../20231114203937.png)
 
 Next, add wazuh server to SOC network

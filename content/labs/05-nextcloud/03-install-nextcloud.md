@@ -60,7 +60,7 @@ chcon -R -t httpd_sys_content_t /var/www/html/nextcloud
 
 
 Go to the intranet website, there's an error about access to the config directory
-![](20231107094103.png)
+![](../20231107094103.png)
 
 
 
@@ -93,25 +93,25 @@ $CONFIG = array (
 Make sure /var/www/html/nextcloud/config/config.php is owned by user apache, and they can write to the file. It will add additional config settings.
 
 Go to the http://intranet.acme.local page and there will be a form to create an account and start installing nextcloud
-![](20231107100817.png)
+![](../20231107100817.png)
 
 Enter a new username and password for the new admin account
 
 
 Click the "Storage & database" link to configure MariaDB instead of SQLite, and enter the database settings from the nextcloud database created earlier
-![](20231107101203.png)
+![](../20231107101203.png)
 
 Click install. It might take about 10-30 seconds
-![](20231107101305.png)
+![](../20231107101305.png)
 
 Now, NextCloud recommends apps to install. It might take a while to install them.
-![](20231107101358.png)
+![](../20231107101358.png)
 
 Now, NextCloud is installed
-![](20231107101504.png)
+![](../20231107101504.png)
 
 The config.php was modified by the installation.
-![](20231107101613.png)
+![](../20231107101613.png)
 
 Next, I'll use the admin account to setup LDAP integration with the Active Directory domain controller.
 
