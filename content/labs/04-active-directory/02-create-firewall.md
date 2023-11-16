@@ -6,7 +6,7 @@ type: docs
 
 ## Create ipfire VM
 I download the IPFire ISO on its download page [https://www.ipfire.org/download/ipfire-2.27-core180](https://www.ipfire.org/download/ipfire-2.27-core180).
-![](20231101043049.png)
+![](../20231101043049.png)
 
 
 I create a new `ipfire` VM with 4GB RAM, 2 CPUs, and 25 GB storage. I check customize configuration to add another NIC before installing.

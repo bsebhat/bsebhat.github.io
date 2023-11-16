@@ -1,5 +1,5 @@
 ---
-title: Lab 05 NextCloud (incomplete)
+title: Lab 05 - NextCloud
 type: docs
 next: 01-add-nextcloud-vm
 ---

@@ -1,5 +1,5 @@
 ---
-title: Lab 01 - Web Server
+title: Lab 01 - systemd
 type: docs
 next: 01-use-badjuicer-to-exploit
 ---

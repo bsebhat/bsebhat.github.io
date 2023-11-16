@@ -1,5 +1,5 @@
 ---
-title: Lab 03 - SIEM
+title: Lab 03 - Splunk
 type: docs
 next: 01-use-badjuicer-to-exploit
 ---

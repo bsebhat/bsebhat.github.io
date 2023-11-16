@@ -1,5 +1,5 @@
 ---
-title: Lab 04 - Active Directory (incomplete)
+title: Lab 04 - Active Directory
 type: docs
 next: 01-setup-lan-network
 ---
