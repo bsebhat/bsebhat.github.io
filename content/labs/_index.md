@@ -3,7 +3,10 @@ title: Labs
 type: docs
 ---
 
-[Lab 01 - systemd](../../labs/01-systemd)
+[Lab 00 - Setup VM Lab](../../labs/00-setup-vm-lab)
+TODO: Short description of lab
+
+[Lab 01 - juice-shop](../../labs/01-juice-shop)
 TODO: Short description of lab
 
 [Lab 02 - pfSense](../../labs/02-pfsense)
