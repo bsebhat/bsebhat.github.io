@@ -24,4 +24,4 @@ sudo virsh net-autostart default
 open virt-manager, create VM
 
 test ping
-add dns host record for server static ip to default virtual network settings
+add dns host record for server static ip to default virtual network settings, restart virt-manager

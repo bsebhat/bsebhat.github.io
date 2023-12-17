@@ -51,6 +51,18 @@ This means the service wil restart if it fails.
 ### WantedBy=multi-user.target
 This means the service should start up when the system accepts user login. This means that when I enable this service, a service file is created at `/etc/systemd/system/multi-user.target.wants/juice-shop.service`. Starting the VM without the `sddm` service will still start the login prompt, so it will still cause this service to be run.
 
+### modify firewalld and selinux 
+modify firewall to allow port 3000
+```
+firewall-cmd --add-port=3000/tcp --permanent
+firewall-cmd --reload
+```
+
+modify selinux to allow nodejs exec:
+```
+sudo ausearch -c 'npm' --raw | sudo audit2allow -M my-npm
+sudo semodule -X 300 -i my-npm.pp
+```
 
 ## Test start juice-shop.service
 Now, I'll try running the application with this new systemd service I created, `juice-shop`:
