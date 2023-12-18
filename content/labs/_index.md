@@ -20,6 +20,3 @@ TODO: Short description of lab
 
 [Lab 05 - NextCloud](../../labs/05-nextcloud)
 TODO: Short description of lab
-
-[Lab 06 - Wazuh](../../labs/06-wazuh)
-TODO: Short description of lab
