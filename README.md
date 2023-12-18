@@ -1,4 +1,6 @@
-My personal blog, deployed at [https://bsebhat.com](https://bsebhat.com).
+Deployed at: [https://bsebhat.com](https://bsebhat.com)
+
+Virtual machine labs: [https://bsebhat.com/labs](https://bsebhat.com/labs)
 
 Installation Prerequisites:
 - [Go Programming Language](https://go.dev/)
