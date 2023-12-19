@@ -36,15 +36,13 @@ sudo usermod -aG kvm $USER
 sudo usermod -aG libvirt $USER
 ```
 
-Check if libvirtd and dnsmasq is running
+Check if libvirtd is running
 ```
 sudo systemctl status libvirtd
-sudo systemctl status dnsmasq
 ```
 
 Run enable/run if not:
 ```
-sudo systemctl enable --now dnsmasq
 sudo systemctl enable --now libvirtd
 ```
 
@@ -54,21 +52,24 @@ Check if `default` virtual network is running
 sudo virsh net-list --all
 ```
 
-I'm going to modify the `default` network DHCP range, so that IP addresses leased to VMs will be seperate from the IP addresses I give to static server VMs. It's not necessary, but it helps make network management a little easier.
-
-Add EDITOR setting in `/etc/environment`:
+Display the `default` virtual network definition:
 ```
-EDITOR=vim
+sudo virsh net-dumpxml default
 ```
 
-Edit `default` virtual network to change DHCP range to 192.168.122.100 to 192.168.122.254
+Check if the host computer is connected to the virtual bridge `virbr0` used by the `default` network:
+```
+ip addr
+```
 
+This shows a connection to the `virbr0` virtual bridge:
 ```
-sudo virsh net-edit default
+5: virbr0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether 52:54:00:36:d3:73 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.122.1/24 brd 192.168.122.255 scope global virbr0
+       valid_lft forever preferred_lft forever
 ```
 
-Restart `default` network:
-```
-sudo virsh net-start default
-sudo virsh net-autostart default
-```
+So now there's a virtual network created, and my host laptop computer is connected to it with the ip address `192.168.122.1`. When I create VMs, I can connect them to this virtual network with virtual network interface cards (NICs). They can have their own IP addresses (between `192.168.122.2` and `192.168.122.254`), and I can simulate how computers are connected to switch network devices.
+
+I'll be using the `default` virtual network for the labs. It will be like a wide area network (WAN), outside of the internal networks I have behind a firewall server VM.
