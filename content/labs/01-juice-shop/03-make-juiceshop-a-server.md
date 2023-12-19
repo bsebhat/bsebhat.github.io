@@ -1,13 +1,10 @@
 ---
-title: 03 Make juiceshop a "Server"
+title: 03 Create juiceshop Service
 type: docs
 ---
 
-## What makes it a "server"?
-The only thing I want the `juiceshop` VM to do is serve the Juice Shop web application to users. Right now, I'm not going to use it for anything else. So that's why I consider it a "server". It's serving resources to clients ("Juice Shop users").
 
-In a way, it's already a server, because running the web application is enough. But I want the Juice Shop web application to start automatically when the machine starts, after the network connection has been established. I'll create a systemd service and enable it so that it runs on startup.
-
+I want the Juice Shop web application to start automatically when the machine starts, after the network connection has been established. I'll create a systemd service and enable it so that it runs on startup.
 
 ## Create systemd service for running web application
 I'll create a systemd service on the `juiceshop` VM by creating a systemd service file `/lib/systemd/system/juice-shop.service`:
@@ -51,46 +48,37 @@ This means the service wil restart if it fails.
 ### WantedBy=multi-user.target
 This means the service should start up when the system accepts user login. This means that when I enable this service, a service file is created at `/etc/systemd/system/multi-user.target.wants/juice-shop.service`. Starting the VM without the `sddm` service will still start the login prompt, so it will still cause this service to be run.
 
-### modify firewalld and selinux 
-modify firewall to allow port 3000
-```
-firewall-cmd --add-port=3000/tcp --permanent
-firewall-cmd --reload
-```
-
-modify selinux to allow nodejs exec:
-```
-sudo ausearch -c 'npm' --raw | sudo audit2allow -M my-npm
-sudo semodule -X 300 -i my-npm.pp
-```
-
-## Test start juice-shop.service
-Now, I'll try running the application with this new systemd service I created, `juice-shop`:
+I try to run the service:
 ```
 sudo systemctl start juice-shop.service
 ```
 
-When I visit the web application from the `sysadmin` VM's browser at `http://juiceshop:3000`, the web app is running.
+But I get an error when I check the status:
+```
+sudo systemctl status juice-shop.service
+```
 
-And when I stop the service with `sudo systemctl stop juice-shop`, the web application stops.
+I check the logs, and it was blocked by SELinux.
 
-I enable it so that it starts when the `juiceshop` VM starts:
+### Modify SELinux To Allow NodeJS
+For the I need to modify SELinux to allow nodejs exec.
+
+First, I search the audit logs for denials related to the 'npm' command and create a new custom policy module called my-npm:
+```
+sudo ausearch -c 'npm' --raw | sudo audit2allow -M my-npm
+```
+
+Next, I install that new policiy module:
+```
+sudo semodule -X 300 -i my-npm.pp
+```
+
+Now, when I run the service, it works.
+```
+sudo systemctl start juice-shop.service
+```
+
+So, I enable it so it runs when the machine starts:
 ```
 sudo systemctl enable juice-shop.service
 ```
-
-## Test that juice-shop web application starts when VM starts
-When I restart the `juiceshop` VM, after a few seconds, the web application is running. I can check if the 3000 port is open by running an nmap scan:
-```
-nmap juiceshop -p3000
-```
-
-## Disable sddm on juiceshop 
-Since I don't think I'll need to use the KDE windows manager desktop on `juiceshop`, I disable the `sddm` service:
-```
-sudo systemctl disable sddm
-```
-Now, when I start it, it will stay in just terminal mode:
-![juiceshop no sddm](../juiceshop-no-sddm.png)
-
-Next, I'll add a Windows 11 VM called `juicefan` and use it like a regular customer/user would.

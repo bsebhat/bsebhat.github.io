@@ -17,7 +17,7 @@ Before installing the `juice-shop` web application, I read its [README instructi
 
 It's a NodeJS web application, so I need to install the `nodejs` and `npm` packages to run it:
 ```
-yay -S nodejs npm
+sudo dnf module install nodejs:18/common
 ```
 
 After they are installed, I'll use `git clone` to download the `juice-shop` code to the `/opt` directory. I put it there because I might have different users maintaining the code on this machine in the future, and `/opt` is commonly used for software deployed in a single directory.
@@ -32,6 +32,14 @@ cd juice-shop/
 sudo npm install
 ```
 There are many warnings, because it's a vulnerable application that uses deprecated packages. There are also many warnings, because it's a vulnerable application that uses deprecated and insecure dependencies.
+
+### modify firewalld and selinux 
+modify firewall to allow port 3000
+```
+firewall-cmd --add-port=3000/tcp --permanent
+firewall-cmd --reload
+```
+
 
 ## Test juice-shop Web App
 After the `npm install` finishes, I run `npm start` to run the web application. It's running on port 3000. To test it out, I can open a web browser on `juiceshop` and request the address `http://localhost:3000`.

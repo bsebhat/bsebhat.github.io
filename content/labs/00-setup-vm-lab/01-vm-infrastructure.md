@@ -73,3 +73,8 @@ This shows a connection to the `virbr0` virtual bridge:
 So now there's a virtual network created, and my host laptop computer is connected to it with the ip address `192.168.122.1`. When I create VMs, I can connect them to this virtual network with virtual network interface cards (NICs). They can have their own IP addresses (between `192.168.122.2` and `192.168.122.254`), and I can simulate how computers are connected to switch network devices.
 
 I'll be using the `default` virtual network for the labs. It will be like a wide area network (WAN), outside of the internal networks I have behind a firewall server VM.
+
+## virt-manager 
+I'll be using the [virt-manager](https://virt-manager.org/) graphical user interfce (GUI) tool to manage the VMs. If you just installed `libvirt`, you may get an error message saying "Unable to connect to libvirt qemu:///system." Try logging out of your desktop environment and logging back in.
+
+In the next lab, I'll create the VMs and have them communicate with eachother over the `default` virtual network.

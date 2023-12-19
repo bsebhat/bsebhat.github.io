@@ -154,3 +154,34 @@ Next, I'll disable the service that starts the GUI when the VM starts:
 sudo systemctl disable gdm
 ```
 When I reboot, the console will be used to login a user.
+
+## Change Console Font
+I want the font to be larger. I install the terminus font:
+```
+sudo yum install epel-release
+sudo yum install terminus-fonts-console.noarch
+```
+
+Then, I'll list the available terminus fonts:
+```
+ls /usr/lib/kbd/consolefonts/ter-*
+```
+
+I'll try the `ter-224b` font:
+```
+setfont ter-224b
+```
+
+I like it, so I edit the `/etc/vconsole.conf` file:
+```
+FONT=ter-224b
+```
+
+And rebuild the initramfs:
+```
+sudo dracut -f
+```
+
+Now, when I reboot, the console font is larger. I'll be using the server via SSH most of the time. Sometimes, I'll need to clone a new server and set the hostname and IP address in the beginning.
+
+In the next lab, I'll create a server that runs the OWASP Juice Shop web application. But I'll be using a workstation VM most of the time, and installing the web application via SSH.

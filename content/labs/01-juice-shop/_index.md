@@ -1,7 +1,7 @@
 ---
 title: Lab 01 - juice-shop
 type: docs
-next: 01-use-badjuicer-to-exploit
+next: 01-create-sysadmin-vm
 ---
 
 ## Intro
