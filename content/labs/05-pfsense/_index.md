@@ -1,5 +1,5 @@
 ---
-title: Lab 02 - pfSense
+title: Lab 05 - pfSense
 type: docs
 next: 01-create-lan-network
 ---

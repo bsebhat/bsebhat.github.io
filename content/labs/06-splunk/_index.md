@@ -1,5 +1,5 @@
 ---
-title: Lab 03 - Splunk
+title: Lab 06 - Splunk
 type: docs
 next: 01-use-badjuicer-to-exploit
 ---

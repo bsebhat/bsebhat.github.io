@@ -1,5 +1,5 @@
 ---
-title: 03 Create juiceshop Service
+title: 04 Create juice-shop.service
 type: docs
 ---
 
@@ -82,3 +82,6 @@ So, I enable it so it runs when the machine starts:
 ```
 sudo systemctl enable juice-shop.service
 ```
+
+When I restart the `juiceshop` VM, and wait for it to show the login prompt, the web app should be accessible at `http://juiceshop:3000`.
+

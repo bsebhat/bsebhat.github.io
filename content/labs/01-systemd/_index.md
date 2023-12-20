@@ -23,8 +23,8 @@ The `juiceshop` VM will be running the vulnerable juice-shop web application..
 ### 2. sysadmin - CentOS Linux workstation
 The `sysadmin` VM will be a Linux desktop I use to manage the `juiceshop` web server via SSH. I'll be acting like the administrator, using their workstation to manage a server.
 
-### 3. juicefan - CentOS Linux workstation
-The `juicefan` VM will be another CentOS workstation that acts like a user/customer for the `juiceshop` web server VM. 
+### 3. customer - CentOS Linux workstation
+The `customer` VM will be another CentOS workstation that acts like a user/customer for the `juiceshop` web server VM. 
 
 
 ### Virtual Networks

@@ -1,5 +1,5 @@
 ---
-title: 03 Install Web App
+title: 03 Install juice-shop App
 type: docs
 ---
 
@@ -43,4 +43,30 @@ firewall-cmd --add-port=3000/tcp --permanent
 firewall-cmd --reload
 ```
 
-Now, the juice-shop web application running on port 3000 should be accessible to the `sysadmin` VM.
+Now, the juice-shop web application running on port 3000 should be accessible to the `sysadmin` VM when the address `http://juiceshop:3000` is entered in a web browser.
+
+## Juice Shop Main Pages
+There are a few important pages you can use as the admin for the juice-shop web app.
+
+You can login as the admin account with this user/pass:
+
+admin username:
+```
+admin@juice-sh.op
+```
+admin password:
+```
+admin123
+```
+
+admin panel URL:
+```
+http://juiceshop:3000/#/administration
+```
+
+## Test Customer Feedback
+You can login with your main browser, access the admin panel, then open a private/incognito browser window. From the private window, you can access the `http://juiceshop:3000` website without being recognized as the admin.
+
+You can go to `http://juiceshop/#/contact` to access the Customer Feedback form and leave anonymous feedback. You just need to enter something in the Comment field, and enter the CAPTCHA math problem, and click Submit.
+
+Then, in the non-private/incognito window where you're logged in as the admin user, you can reload the `http://juiceshop/#/administration` admin page and see your anonymous customer feedback at the bottom of the page.
