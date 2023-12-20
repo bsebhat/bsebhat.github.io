@@ -1,5 +1,5 @@
 ---
-title: 06 Investigate Incident
+title: 02 Investigate Incident
 type: docs
 ---
 
