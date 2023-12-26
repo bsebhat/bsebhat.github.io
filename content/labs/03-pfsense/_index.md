@@ -1,7 +1,7 @@
 ---
 title: Lab 03 - pfSense
 type: docs
-next: 01-create-lan-network
+next: 01-add-hacker-vm
 ---
 
 ## Intro

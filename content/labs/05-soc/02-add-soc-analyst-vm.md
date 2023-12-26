@@ -1,5 +1,5 @@
 ---
-title: 03 Add soc-analyst VM
+title: 02 Add soc-analyst VM
 type: docs
 ---
 

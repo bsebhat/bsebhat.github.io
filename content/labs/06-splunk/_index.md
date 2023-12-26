@@ -1,7 +1,7 @@
 ---
 title: Lab 06 - Splunk
 type: docs
-next: 01-use-badjuicer-to-exploit
+next: 01-add-splunk-vm
 ---
 
 After the previous labs, I have two important assets that are critical to the juice selling business Juice Shop: the `pfsense` firewall server and the `juiceshop` web server.

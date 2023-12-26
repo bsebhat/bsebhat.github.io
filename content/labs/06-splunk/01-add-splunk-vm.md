@@ -1,5 +1,5 @@
 ---
-title: 04 Add splunk VM
+title: 01 Add splunk VM
 type: docs
 ---
 
