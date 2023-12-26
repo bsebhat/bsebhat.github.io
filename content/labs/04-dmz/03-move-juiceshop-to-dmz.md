@@ -1,5 +1,5 @@
 ---
-title: 06 Move juiceshop to DMZ
+title: 03 Move juiceshop to DMZ
 type: docs
 ---
 

@@ -4,7 +4,7 @@ type: docs
 ---
 **TODO: finish documentation, describe libvirt and networks**
 
-I'm going to create a an isolated network that the `juiceshop` and `sysadmin` VMs can use to communicate. The customer's machine, `juicefan`, won't have access to it. And the `juiceshop` and `sysadmin` won't be connected to the default virtual network either.
+I'm going to create a an isolated network that the `juiceshop` and `sysadmin` VMs can use to communicate. The customer's machine, `customer`, won't have access to it. And the `juiceshop` and `sysadmin` won't be connected to the default virtual network either.
 
 Here's a diagram of the `LAN` network and the VMs:
 TODO: add diagram

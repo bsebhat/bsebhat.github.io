@@ -6,13 +6,13 @@ type: docs
 On the `soc-analyst` machine, I log into the `splunk` web interface, using the "soc-analyst" user account. With this "user" role, they can search for events and save searches.
 
 ## Message From sysadmin to soc-analyst
-The `sysadmin` got an email from `juicefan` about their account getting hacked. Someone put a $3000 bike in `juicefan`'s basket. Now, `sysadmin` would like `soc-analyst` to investigate what happened:
+The `sysadmin` got an email from `customer` about their account getting hacked. Someone put a $3000 bike in `customer`'s basket. Now, `sysadmin` would like `soc-analyst` to investigate what happened:
 ```
 From: sysadmin
 To: soc-analyst
 
 We've got a user with the email:
-juicefan@example.com
+customer@example.com
 
 They had the $3000 bike
 added to their basket
@@ -29,10 +29,8 @@ From the `soc-analyst` desktop, I log into the `splunk` web server with the user
 
 ### Interpreting HTTP Requests
 There are some `GET /rest/basket/` and `POST /rest/BasketItems/` HTTP requests. The `juiceshop` web application is a "single page application". When the user interacts with it, by clicking the "Add to Basket" button or "liking" a review, the whole page doesn't reload.
-![rest example](../rest-example.png)
 
 Individual requests are made from the user's browser to the `pfsense` firewall server, forwarded the `juiceshop` web server, and get handled by the Juice Shop web application in `/opt/juice-shop`.
-![source code](../source-code.png)
 
 The different methods, like `GET` and `POST`, are used to communicate to the Juice Shop web application so it knows how to handle the request.
 
@@ -47,11 +45,10 @@ If I change the Splunk search query from `index="juiceshop" *basket*` to `index=
 These HTTP events give the source IP address for all the `POST /api/BasketItems/` request (meaning, all the requests from users to put basket items in baskets) that the Juice Shop web application received.
 
 There is an interesting entry. The other requests to add basket items had the `HTTP 200` response. Meaning, they were successful. But there were a few `HTTP 401` responses here:
-![401 responses](../401-responses.png)
 
 And `HTTP 401` is used when the client/user lacks valid authentication credentials. [Unauthorized](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401).
 
-It could be a bug in the code, so I'll check with the web application's database. See when the $3000 bike was added to `juicefan`'s basket.
+It could be a bug in the code, so I'll check with the web application's database. See when the $3000 bike was added to `customer`'s basket.
 
 ## Investigate Basket Data In juiceshop Database
 I use the `juiceshop` user account that `sysadmin` created for `soc-analyst` to SSH into `juiceshop`. I'm able to go into the `/opt/juice-shop` directory, because I'm in the `juiceshop` group.
@@ -74,7 +71,7 @@ JOIN
 JOIN 
     Products ON BasketItems.ProductId = Products.id
 WHERE 
-    Users.email = 'juicefan@example.com';
+    Users.email = 'customer@example.com';
 ```
 
 This returned:
@@ -87,13 +84,11 @@ This returned:
 So the expensive bike was added on `October 24, 2023 16:38:20`, in UTC time. That would be 
 
 If I look go back to the logs in Splunk, that is when the `HTTP 200` response occurred after a few `HTTP 401` attempts.
-![200 success](../200-success.png)
 
 And it looks like the IP address used is `192.168.122.181`.
 
 ## Save Splunk Search
 Next, I search the `juiceshop` index for the IP address associated with the incident, `192.168.122.181`, with `All Time` as the time range, and save it as `Potential Malicious Juicer` and add a short description. If there's an incident number, I add it.
-![saved search](../saved-search.png)
 
 Next, I'll report what I found to the `sysadmin`, and give suggestions about what can be done to prevent this from happening again.
 
@@ -105,7 +100,7 @@ Hi. It looks like the user at 192.168.122.181
 expoited a broken access control by 
 manipulating an HTTP POST, 
 adding a product to the 
-"juicefan@example.com" account.
+"customer@example.com" account.
 
 I suggest configuring the pfsense firewall server to
 blocking that IP address ASAP.

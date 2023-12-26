@@ -21,6 +21,6 @@ nmcli connection up enp1s0
 I am able to ping the `juiceshop` from the `sysadmin` VM, and I can visit that Juice Shop web application running on it.
 
 
-But I need to allow the customer on the `juicefan` VM to access the `juiceshop` VM. The `juicefan` isn't connected to the `LAN` isolated network I created. I only want the VMs running the Juice Shop web application on that internal network.
+But I need to allow the customer on the `customer` VM to access the `juiceshop` VM. The `customer` isn't connected to the `LAN` isolated network I created. I only want the VMs running the Juice Shop web application on that internal network.
 
-So I'll need to configure the `pfsense` firewall server to act like a gateway between the customer and the website, forwarding web requests from the "WAN" interface to the `juicefan` VM.
+So I'll need to configure the `pfsense` firewall server to act like a gateway between the customer and the website, forwarding web requests from the "WAN" interface to the `customer` VM.

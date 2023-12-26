@@ -1,5 +1,5 @@
 ---
-title: 02 Add SOC Network
+title: 01 Add SOC Network
 type: docs
 ---
 

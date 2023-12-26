@@ -7,7 +7,7 @@ type: docs
 Incident: User put $2999 bike in another users basket
 
 ### Incident Summary:
-- The basket belonged to user juicefan@example.com (UserId: 22)
+- The basket belonged to user customer@example.com (UserId: 22)
 - The product was the Melon Bike (ProductId: 33, Price: 2999)
 - The suspect used the IP address 192.168.122.181
 - There were 3 attempts over less than 3 minutes to put the product in the user's basket, each receiving a HTTP 401 error
@@ -36,7 +36,7 @@ JOIN
 JOIN 
     Products ON BasketItems.ProductId = Products.id
 WHERE 
-    Users.email = 'juicefan@example.com';
+    Users.email = 'customer@example.com';
 ```
 
 That returned these results:
