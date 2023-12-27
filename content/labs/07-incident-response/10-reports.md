@@ -1,5 +1,5 @@
 ---
-title: 03 Post-Investigation Report
+title: 10 Reports
 type: docs
 ---
 
@@ -36,7 +36,7 @@ JOIN
 JOIN 
     Products ON BasketItems.ProductId = Products.id
 WHERE 
-    Users.email = 'customer@example.com';
+    Users.email = 'juicefan@example.com';
 ```
 
 That returned these results:
@@ -49,14 +49,3 @@ That returned these results:
 Going back to the Splunk event log for the juiceshop index, I found the POST command to "/api/BasketItems" that matched the time the bike was added to the user's basket, October 24, 2023 16:38:20 UTC.
 
 I searched for all event logs in the juiceshop for the IP address used to add that basket item, 192.168.122.181, and saved it as "Potential Malicious Juice".
-
-### Suggestions To Improve
-I think there are some things I could improve to make the response faster:
-1. Install an intrusion detection system (IDS) on our `pfsense` firewall server that generates alerts when a request generates error codes, like the HTTP 401 code involved in this incident.
-2. Create an incident response playbook with:
-   1. Common SQL queries used in investigations.
-   2. Splunk queries and procedures for different incidents.
-   3. Templates for creating reports.
-3. Install a web application firewall (WAF) installed on the `juiceshop` web server that can detect exploitation like SQL Injection of Broken Access Controls.
-4. Improve the Splunk server by installing an add-on that can parse the juiceshop access log entries into more fields. I think the source type can be changed to "apache:access:combined", but this requires more research.
-5. Install a ticketing system for communication between `sysadmin` and SOC team.

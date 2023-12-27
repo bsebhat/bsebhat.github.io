@@ -51,8 +51,3 @@ I go to `http://splunk:8000` and login
 
 ## Add splunk hostname to pfSense DNS Resolver
 Because the `splunk` server doesn't use DHCP, I need to manually add the hostname to the pfSense DNS Resolver service:
-
-## Add soc-analyst User To Splunk Server
-The Splunk server has an admin user account, but I think I'll create a lower-privilege account for the `soc-analyst` to use. They just need to monitor the events, while the `sysadmin` can have the admin account to make important changes to Splunk.
-
-While creating a user for `soc-analyst` to use, I choose the "user" [role](https://docs.splunk.com/Documentation/Splunk/9.1.1/Admin/Aboutusersandroles). This gives them the ability to search, and create and edit saved searches.

@@ -16,6 +16,11 @@ I'll also need to install git
 sudo dnf install git
 ```
 
+I'll also install the sqlite3 package, so that I can query the juiceshop sqlite database.
+```
+sudo dnf install sqlite3
+```
+
 ## Download juice-shop code from GitHub
 After NodeJS is installed, I'll use `git clone` to download the `juice-shop` code to the `/opt` directory. I put it there because I might have different users maintaining the code on this machine in the future, and `/opt` is commonly used for software deployed in a single directory.
 ```

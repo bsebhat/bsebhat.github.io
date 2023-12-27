@@ -1,5 +1,5 @@
 ---
-title: 02 Investigate Incident
+title: 06 - Investigation A
 type: docs
 ---
 
@@ -51,10 +51,9 @@ And `HTTP 401` is used when the client/user lacks valid authentication credentia
 It could be a bug in the code, so I'll check with the web application's database. See when the $3000 bike was added to `customer`'s basket.
 
 ## Investigate Basket Data In juiceshop Database
-I use the `juiceshop` user account that `sysadmin` created for `soc-analyst` to SSH into `juiceshop`. I'm able to go into the `/opt/juice-shop` directory, because I'm in the `juiceshop` group.
+I use the `soc-analyst` user account that `sysadmin` created for the SOC team to SSH into `juiceshop`. I'm able to go into the `/opt/juice-shop` directory, because I'm in the `juiceshop` Linux group.
 
 In the `/opt/juice-shop/data` directory is the SQLite database `juiceshop.sqlite`. I use the `sqlite3` application to connect to the database.
-![soc ssh](../soc-ssh.png)
 
 The user that had the bike product put in their basket has the email `juiceshop@example.com`, so I use SQL to query the `createdAt` date for all the BasketItems in their Baskets, joined with the data from the Products table:
 ```sql
