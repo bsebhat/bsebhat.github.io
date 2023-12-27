@@ -1,5 +1,5 @@
 ---
-title: 06 - Investigation A
+title: 05 Basket Stuffing Investigation
 type: docs
 ---
 
