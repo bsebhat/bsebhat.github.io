@@ -1,5 +1,5 @@
 ---
-title: 02 Create juiceshop VM
+title: 04 Create juiceshop VM
 type: docs
 ---
 
@@ -13,5 +13,3 @@ Instead of selecting "Workstation" like I did with `sysadmin`, I'll just choose 
 Instead of using DHCP to receive a leased IP address, I'll give `juiceshop` a static IP address of `192.168.122.10`. I'll use the same `192.168.122.1` for the gateway and DNS server settings.
 
 After the CentOS installation has finished, I click "Reboot System". From now on, I'll be using the `sysadmin` to install the OWAS Juice Shop web application.
-
-## Install juice-shop web app from Github

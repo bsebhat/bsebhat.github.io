@@ -1,5 +1,5 @@
 ---
-title: Lab 01 - juice-shop
+title: Lab 01 - systemd
 type: docs
 next: 01-create-sysadmin-vm
 ---

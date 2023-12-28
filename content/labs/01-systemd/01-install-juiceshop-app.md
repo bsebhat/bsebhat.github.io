@@ -1,9 +1,11 @@
 ---
-title: 03 Install juice-shop App
+title: 01 Install juice-shop App
 type: docs
 ---
 
-In this step, I'm following the Juice Shop [instructions on installing it from source](https://github.com/juice-shop/juice-shop#from-sources).
+In this step, I'm following the Juice Shop [instructions on installing it from source](https://github.com/juice-shop/juice-shop#from-sources) to install the juice-shop web application on the `juiceshop` VM.
+
+I'll be using the SSH service to use the `juiceshop` terminal from the `sysadmin`, using the user account I've created during the CentOS installation: `vmadmin`.
 
 ## Install NodeJS
 First, I'll install NodeJS version 20.

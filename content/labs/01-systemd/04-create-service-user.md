@@ -1,5 +1,5 @@
 ---
-title: 06 Create Service User
+title: 04 Create Service User
 type: docs
 ---
 

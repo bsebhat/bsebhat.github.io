@@ -1,5 +1,5 @@
 ---
-title: 05 Add customer VM
+title: 03 Add customer VM
 type: docs
 ---
 

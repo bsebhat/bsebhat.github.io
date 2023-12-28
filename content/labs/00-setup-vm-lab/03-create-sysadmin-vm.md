@@ -1,5 +1,5 @@
 ---
-title: 01 Create sysadmin VM
+title: 03 Create sysadmin VM
 type: docs
 ---
 
