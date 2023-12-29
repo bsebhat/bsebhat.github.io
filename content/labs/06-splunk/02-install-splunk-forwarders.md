@@ -61,10 +61,15 @@ defaultGroup = splunk
 server = 192.168.3.10:9997
 ```
 
-## Start splunkforwarder systemd Service
-I start and enable the `splunkforwarer` service on the `juiceshop` server:
+## Create SplunkForwarder systemd Service
+I enable the `SplunkForwarder` service on the `juiceshop` server:
 ```
-sudo systemctl enable --now splunkforwarder
+sudo /opt/splunkforwarder/bin/splunk enable boot-start -user splunkfwd  -systemd-managed 1
 ```
 
-I go on the Splunk web interface and use the search app to search for `index="juiceshop"` and I see access logs for the web app on `juiceshop`.
+And I start it:
+```
+sudo systemctl start SplunkForwarder.service
+```
+
+Next, use the web app on `juiceshop` from a browser. Just refresh it once or twice. Then, I go on the Splunk web interface and use the search app to search for `index="juiceshop"` and I see access logs for the web app on `juiceshop`.
