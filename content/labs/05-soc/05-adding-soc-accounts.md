@@ -8,14 +8,14 @@ Previously, the SOC team recommended that low-privilege accounts be created for 
 ## juiceshop Access
 For the `juiceshop` server, a new low-privilege user called `soc-analyst` can be created. I can go on the `sysadmin` desktop and SSH into `juiceshop`.
 
-Then, I can create a new `soc-analyst` user:
+Then, I can create a new `soc-analyst` user on the `juiceshop`:
 ```
 sudo useradd soc-analyst
 ```
 
 And I give it a password:
 ```
-sudo passwd soc-team
+sudo passwd soc-analyst
 ```
 
 Since the NodeJS app is located at `/opt/juice-shop`, and it's owned by the user `juiceshop` and group `juiceshop`, you can add the `soc-analyst` user to the `juiceshop` group, then adjust the permission for the `/opt/juice-shop` so the group `juiceshop` only has read access. This lets the user `juiceshop` to keep having read and write access, but the group `juiceshop` (including this new `soc-analyst` user) only has read access.
