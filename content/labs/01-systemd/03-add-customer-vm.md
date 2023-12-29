@@ -10,5 +10,5 @@ To create the customer VM, I clone the `sysadmin` VM I created. Then, I change t
 
 When I clone the `sysadmin` VM to create the `customer` VM, the files are all copied to a new virtual hard drive. Virtual devices, like the virtual NIC device, gets new randomly generated identification strings. The NIC gets a new MAC address, so when it requests an IP address from the same DHCP service as the `sysadmin` VM it was cloned from, it will be seen as a brand new NIC device and be leased a new IP address.
 
-I'll use this to create an account called `customer1@example.com`, and order some apple juice.
+I'll use this to create an account called `customer@example.com`, and order some apple juice.
 

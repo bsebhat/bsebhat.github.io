@@ -7,43 +7,37 @@ In this step, I'm following the Juice Shop [instructions on installing it from s
 
 I'll be using the SSH service to use the `juiceshop` terminal from the `sysadmin`, using the user account I've created during the CentOS installation: `vmadmin`.
 
+## Download juice-shop v16 From GitHub
+juice-shop version 16.0.0 is currently the latest version. You can download the packaged version from its GitHub releases page at `https://github.com/juice-shop/juice-shop/releases/tag/v16.0.0`.
+```
+wget https://github.com/juice-shop/juice-shop/releases/download/v16.0.0/juice-shop-16.0.0_node21_linux_x64.tgz
+```
+
+This packaged release doesn't require running `npm install` the first time. This will save a few minutes.
+
 ## Install NodeJS
-First, I'll install NodeJS version 20.
+The node version supported by this juice-shop release is included in the file name: node version 21. You can install this version using CentOS's package manager dnf:
 ```
-dnf module -y install nodejs:20/common
-```
-
-I'll also need to install git
-```
-sudo dnf install git
+dnf module -y install nodejs:21/common
 ```
 
-I'll also install the sqlite3 package, so that I can query the juiceshop sqlite database.
+## Extract juice-shop package
+I'll extract the juice-shop .tgz file into the `/opt` directory, which requires `sudo`:
 ```
-sudo dnf install sqlite3
-```
-
-## Download juice-shop code from GitHub
-After NodeJS is installed, I'll use `git clone` to download the `juice-shop` code to the `/opt` directory. I put it there because I might have different users maintaining the code on this machine in the future, and `/opt` is commonly used for software deployed in a single directory.
-```
-cd /opt
-sudo git clone https://github.com/juice-shop/juice-shop.git --depth 1
+sudo tar zxvf juice-shop-16.0.0_node21_linux_x64.tgz -C /opt
 ```
 
+
+## Run juice-shop on localhost:3000
 After the code is downloaded, I go into the `juice-shop` directory and install the juice-shop web project using npm:
 ```
-cd juice-shop/
-sudo npm install
-```
-There are many warnings, because it's a vulnerable application that uses deprecated packages. There are also many warnings, because it's a vulnerable application that uses deprecated and insecure dependencies.
-
-After `npm install` has completed, I run the server:
-```
+cd /opt/juice-shop/
 sudo npm start
 ```
 
 This will run on port 3000. So the `sysadmin` VM should access it with the URL `http://juiceshop:3000` or `http://192.168.122.10:3000`. However, when I try this, I get a 404 error. This is because the firewalld service doesn't allow other machines to access the 3000 TCP port. 
 
+## Add Port 3000 To firewalld
 I need to modify the `juiceshop` firewall to allow port 3000:
 ```
 firewall-cmd --add-port=3000/tcp --permanent
@@ -52,28 +46,9 @@ firewall-cmd --reload
 
 Now, the juice-shop web application running on port 3000 should be accessible to the `sysadmin` VM when the address `http://juiceshop:3000` is entered in a web browser.
 
-## Juice Shop Main Pages
-There are a few important pages you can use as the admin for the juice-shop web app.
+## Try Using Juice Shop 
+From `sysadmin`, you can open the Firefox browser and access the juice-shop app at `http://juiceshop:3000`.
 
-You can login as the admin account with this user/pass:
+As a quick test, you can submit anonymous customer feedback. Go to `http://juiceshop/#/contact` to access the Customer Feedback form and fill out the form. You just need to enter something in the Comment field, solve the CAPTCHA math problem, and click Submit.
 
-admin username:
-```
-admin@juice-sh.op
-```
-admin password:
-```
-admin123
-```
-
-admin panel URL:
-```
-http://juiceshop:3000/#/administration
-```
-
-## Test Customer Feedback
-You can login with your main browser, access the admin panel, then open a private/incognito browser window. From the private window, you can access the `http://juiceshop:3000` website without being recognized as the admin.
-
-You can go to `http://juiceshop/#/contact` to access the Customer Feedback form and leave anonymous feedback. You just need to enter something in the Comment field, and enter the CAPTCHA math problem, and click Submit.
-
-Then, in the non-private/incognito window where you're logged in as the admin user, you can reload the `http://juiceshop/#/administration` admin page and see your anonymous customer feedback at the bottom of the page.
+To view the feedback, you can login as the built-in administrator account. The username is `admin@juice-sh.op` and the password is `admin123`. Go to the admin panel at `http://juiceshop/#/administration` at the end of the Customer Feedback section.

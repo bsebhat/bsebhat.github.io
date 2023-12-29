@@ -3,10 +3,12 @@ title: 02 Edit default Network
 type: docs
 ---
 
-I've installed `libvirt` and it created a `default` virtual network. There is a `virsh net-edit` tool for editing a virtual network's "definition". The "definition" is basically like the settings for the network device like a switch. 
+I've installed `libvirt` and it created a `default` virtual network. libvirt provides a command line tool called `virsh` that can manage virtual machines and virtual networks.
+
+The `virsh net-edit` command can can a virtual network's "definition". This lets you change DHCP seettings. The "definition" is basically like the settings or configuration for the network. 
 
 ## View default Network Definition
-To get the settings for the default virtual network, I can use the `virsh` command line tool:
+To get the settings for the default virtual network, I can use the `virsh` command `virsh net-dumpxml`:
 ```
 sudo virsh net-dumpxml default
 ```
@@ -31,7 +33,7 @@ This outputs the settings in an XML format. This is what it may look like (the u
 </network>
 ```
 
-## Edit default Network Definition
+## Edit default Network Definition using virsh
 I'm going to modify the `default` network DHCP range (inside the `<network><ip><dhcp>` tags), so that IP addresses leased to VMs will be seperate from the static IP addresses that I assign to server VMs. It's not necessary, but it helps make network management a little easier.
 
 First, I'll add set the `EDITOR` to `vim` setting in `/etc/environment`:
