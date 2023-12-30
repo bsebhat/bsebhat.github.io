@@ -14,9 +14,9 @@ To: soc-analyst
 We've got a user with the email:
 customer@example.com
 
-They had the $3000 bike
+They had products
 added to their basket
-without their permission.
+without their knowledge.
 Can you find more info about this?
 
 Thanks
@@ -86,6 +86,37 @@ If I look go back to the logs in Splunk, that is when the `HTTP 200` response oc
 
 And it looks like the IP address used is `192.168.122.181`.
 
+## pfsense Packet Capture
+When I creted an account for `soc-analyst` on the `pfsense` firewall server, I gave the user access to the Packet Capture feature on the web GUI for pfsense, webConfigurator. The feature provides a user interface for setting up the packet capture software `tcpdump`, and can monitor different interfaces on the `pfsense` server.
+
+For the purpose of gathering evidence of the data being transmitted by this suspicious user at IP `192.168.122.181`, I can login to the `pfsense` server at `https://192.168.3.1`, open the Diagnistics > Packet Capture page, and start configuring a filter for the traffic. I know it will be using the TCP protocol, involving the suspicious IP address, and come through the `WAN` interface (aka the `vtnet0` interface on `pfsense`).
+
+I can edit those fields in the Packet Capture and Custom Filter sections. Then, I click start. The traffic matching those will appear in the "Packet Capture Output" large text field. It's saved as a `.pcap` file in the `pfsense` temporary directory.
+
+The `tcpdump` command that this user interface uses is:
+```
+/usr/sbin/tcpdump -ni vtnet0 -c '1000' -U -w - '((host 192.168.122.120) and (tcp)) and ((not vlan))'
+```
+
+## Repeat Exploit From hacker VM
+Using the `hacker` VM, I can use the Burp Suite Repeater tool to send the same `POST` request using two basket id numbers, adding a product to the `customer` basket. This will be included in the packets captured on `pfsense`.
+
+## Analyze pcap File With Wireshark
+Using the `soc-analyst` VM, I can stop the packet capture, and click the "Download" button. This saves the `.pcap` file. I can then find the file in the Downloads directory and open it with a popular packet inspection software installed on Kali Linux called [Wireshark](https://www.wireshark.org/). It lets me look through the packets in an easy to view user interface.
+
+I can view the individual packets, their source and destination IP addresses, and the content of the payload for `POST` requests. The payload being sent from the user's browser to the server is in `JSON` format. This is an easy to read object format.
+
+I can filter the packets by the the packet attributes, like destination IP and protocol. To filter for just packets from the suspicious IP `192.168.122.120` using the HTTP method `POST` that is in `JSON` format, I can enter this in the filter field:
+```
+ip.src == 192.168.122.120 && (http.request.method == "POST") && (http contains "Content-Type: application/json")
+```
+
+These represent the client, in this case the `hacker` VM, telling the server, in this case the Juice Shop web application running on the `juiceshop` VM (via port forwarding on the `pfsense` VM) to create basket items. Under the "JSON Object Notation" field, you can see the payload being sent.
+
+When `hacker` was using the Burp Suite Repeater tool to bypass the `401 Unauthorized` responses, they used the "HTTP paramater pollution". They passed two basket ids in a single `POST` request payload. This shouldn't be possibe if they used the normal user interface of clicking the "Add To Basket" button.
+
+To see how the server responded to a `POST` request, you can right click the packet and select "Follow > HTTP Stream". This opens a window showing the HTTP request and the HTTP response. When `hacker` was first attempting, some of the responses were were `401 Unauthorized`. But then they were able to get a `200 OK` response. This meant the basket item was created. The response included the new basket item object, with the basket id being the one belonging to `customer`, not `hacker`. These packets can be included in the report, and can help developers understand how to fix the vulnerability.
+
 ## Save Splunk Search
 Next, I search the `juiceshop` index for the IP address associated with the incident, `192.168.122.181`, with `All Time` as the time range, and save it as `Potential Malicious Juicer` and add a short description. If there's an incident number, I add it.
 
@@ -108,4 +139,5 @@ The juiceshop source code
 should be reviewed, specifically code that 
 handles the REST API for basket items:
 /opt/juice-shop/routes/basketItems.ts
+
 ```
