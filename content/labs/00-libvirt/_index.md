@@ -1,5 +1,5 @@
 ---
-title: Lab 00 - Setup VM Lab
+title: Lab 00 - libvirt
 type: docs
 next: 01-vm-infrastructure
 ---

@@ -10,7 +10,7 @@ The `virsh net-edit` command can can a virtual network's "definition". This lets
 ## View default Network Definition
 To get the settings for the default virtual network, I can use the `virsh` command `virsh net-dumpxml`:
 ```
-sudo virsh net-dumpxml default
+virsh net-dumpxml default
 ```
 
 This outputs the settings in an XML format. This is what it may look like (the uuid and mac address will be randomly generated):
@@ -44,7 +44,7 @@ EDITOR=vim
 Edit `default` virtual network to change DHCP range to 192.168.122.100 to 192.168.122.254
 
 ```
-sudo virsh net-edit default
+virsh net-edit default
 ```
 
 This will open the `default` virtual network's settings XML file in `vim`. I then edit the `<range>` tag to have the `start` attribute of `192.168.122.100` instead of `192.168.122.2`:
@@ -69,6 +69,6 @@ This will open the `default` virtual network's settings XML file in `vim`. I the
 
 To have the `default` network use this new definition, I need to "net-destroy" it (basically stop it), then "net-start":
 ```
-sudo virsh net-destroy default
-sudo virsh net-start default
+virsh net-destroy default
+virsh net-start default
 ```
