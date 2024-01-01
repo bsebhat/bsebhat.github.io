@@ -5,10 +5,16 @@ next: 01-add-hacker-vm
 ---
 
 ## Intro
-In a previous lab I create three VMs: `juiceshop`, `sysadmin`, and `customer`. The `juiceshop` VM is a Linux server running the vulnerable web application by OWASP called [Juice Shop](https://owasp.org/www-project-juice-shop/). The `sysadmin` was a Linux desktop that managed the `juiceshop` server via SSH. And the `customer` was a Windows desktop with a customer using the Juice Shop web application on the `juiceshop` VM.
+In a previous lab I create three VMs: `juiceshop`, `sysadmin`, and `customer`. The `juiceshop` VM is a Linux server running the vulnerable web application by OWASP called [Juice Shop](https://owasp.org/www-project-juice-shop/).
 
-The VMs all had virtual network interface cards connected to the default virtual network. Here's a diagram of that setup at the end of the lab:
-![vulnerable web app](../diagrams/vulnerable-web-app.drawio.png)
+The `sysadmin` is a Linux workstation that manages the `juiceshop` server via SSH.
+
+And the `customer` is a Linux workstation used by a customer of Juice Shop, using the Juice Shop web application running on the `juiceshop` VM.
+
+The VMs all had virtual network interface cards (NICs) connected to the `default` virtual network. Here's a diagram of that setup at the end of the lab:
+![diagram](../diagrams/lab-01-systemd.drawio.png)
+
+Then, I installed [the NGINX server to run as a reverse proxy](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) that takes HTTP traffic on port 80 and forwards it to the web application running on port 3000.
 
 In this lab, I want to add a firewall server VM called `pfsense` that will be a gateway between the Juice Shop customer on `customer` and the VMs used to manage the Juice Shop web application: `sysadmin` and `juiceshop`.
 

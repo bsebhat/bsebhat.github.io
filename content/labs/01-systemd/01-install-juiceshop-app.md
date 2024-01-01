@@ -7,6 +7,14 @@ In this step, I'm following the Juice Shop [instructions on installing it from "
 
 I'll be using the SSH service to use the `juiceshop` terminal from the `sysadmin`, using the user account I've created during the CentOS installation: `vmadmin`.
 
+## SSH Into juiceshop From sysadmin
+I'll be using the `sysadmin` VM as a workstation that manages other server VMs. I'll run commands on the `juiceshop` server by using its SSH service. I login to `juiceshop` using the user account I created called `vmadmin`:
+```
+ssh vmadmin@juiceshop
+```
+
+Now I can use the `juiceshop` as if I was working on it directly. However, if I change things like certain network settings, the SSH connection will end. For now, I'm just installing the juice-shop web application.
+
 ## Download juice-shop v16 From GitHub
 juice-shop version 16.0.0 is currently the latest version. It has different packaged files for download from its GitHub repository. They are for different platforms (Windows, Linux, Mac) and different versions of NodeJS (version 18, 19, 20, 21).
 
@@ -14,22 +22,6 @@ I'll be using the Linux x64 version with NodeJS version 20. You can download the
 ```
 wget https://github.com/juice-shop/juice-shop/releases/download/v16.0.0/juice-shop-16.0.0_node20_linux_x64.tgz
 ```
-
-And I extract it:
-```
-tar xzvf juice-shop-16.0.0_node20_linux_x64.tgz
-```
-
-I'll rename the output directory from `juice-shop_16.0.0` to `juice-shop`:
-```
-mv juice-shop_16.0.0 juice-shop
-```
-
-And go to that directory:
-```
-cd juice-shop
-```
-
 This packaged release doesn't require running `npm install` the first time. This will save a few minutes.
 
 ## Install NodeJS
@@ -39,20 +31,44 @@ dnf module -y install nodejs:20/common
 ```
 
 ## Extract juice-shop package
-I'll extract the juice-shop .tgz file into the `/opt` directory, which requires `sudo`:
+I'll extract the juice-shop .tgz file:
 ```
-sudo tar zxvf juice-shop-16.0.0_node20_linux_x64.tgz
+tar zxvf juice-shop-16.0.0_node20_linux_x64.tgz
 ```
 
-I rename the extracted directory to simply `juice-shop`:
+I rename the extracted directory to just `juice-shop`:
 ```
 mv juice-shop-16.0.0 juice-shop
 ```
 
 And cd into it:
-
 ```
 cd juice-shop
+```
+
+This directory contains the web application files, including database files and images.
+
+Before I run the juice-shop web application, I need to modify the `firewall` service running on `juiceshop`. If I don't allow other machines to access the TCP port 3000, I won't be able to visit the web application from `sysadmin`. 
+
+## Add Port 3000 To firewalld
+I can see the open ports on the `firewall` service by listing its configuration:
+```
+sudo firewall-cmd --list-all
+```
+
+I change the `juiceshop` firewall to allow the TCP port 3000:
+```
+firewall-cmd --add-port=3000/tcp --permanent
+```
+
+And then reload it:
+```
+firewall-cmd --reload
+```
+
+Now, I can see the 3000 on the `ports:` setting on the `firewall` service by listing its configuration again:
+```
+sudo firewall-cmd --list-all
 ```
 
 ## Run juice-shop on localhost:3000
@@ -63,12 +79,6 @@ npm start
 
 Within a few seconds, it should say it's running on port 3000. So the `sysadmin` VM should access it with the URL `http://juiceshop:3000` or `http://192.168.122.10:3000`. However, when I try this from `sysadmin`, I get a 404 error. This is because the firewalld service on `juiceshop` doesn't allow other machines to access that 3000 TCP port. 
 
-## Add Port 3000 To firewalld
-I need to modify the `juiceshop` firewall to allow the TCP port 3000. I stop the `npm start` command, and modify the firewall:
-```
-firewall-cmd --add-port=3000/tcp --permanent
-firewall-cmd --reload
-```
 
 Then, I re-run the `npm start` command.
 
