@@ -1,24 +1,28 @@
 ---
-title: 01 Install Software
+title: 01 Install VM Software
 type: docs
 ---
 
 I'm going to first setup my VM infrastructure. Basically, the software I need to add to the existing KVM hypervisor that will help make managing VMs and labs easier.
 
+My computer is a Dell XPS laptop, running Kubuntu 22.04.03 LTS with 32GB RAM and Intel i9-9980HK processor.
+
 This is based on the Tecmint tutorial on [installing QEMU/KVM on Ubuntu](https://www.tecmint.com/install-qemu-kvm-ubuntu-create-virtual-machines/).
 
 ## Check If Virtualization Supported
-Check how many times the `vmx` or `svm` flags appear in the file `/proc/cpuinfo` files. More than 0 means the CPU supports virtualization:
+Before installing the virtualiztion software, I'll check if my laptop's processor supports efficient KVM virtualization. Having KVM manage 
+
+This command will check how many times the `vmx` (Intel VT-x) or `svm` (AMD-V) flags appear in the file `/proc/cpuinfo` files. More than 0 means the CPU supports KVM's virtualizations extensions, and you can efficiently run multiple VMs:
 ```
 egrep -c '(vmx|svm)' /proc/cpuinfo
 ```
 
-The `cpu-checker` package provides the `kvm-ok` command for checking for CPU features are enabled and accessible. It can be installed on Ubuntu with:
+There's also a `cpu-checker` apt package that provides the `kvm-ok` command for checking for CPU features required to support KVM acceleration are enabled and accessible. It can be installed on Ubuntu with:
 ```
-sudo apt install cpu-checker -y
+sudo apt install -y cpu-checker
 ```
 
-Running `kvm-ok` outputs:
+Running `kvm-ok` outputs gets the output:
 ```
 INFO: /dev/kvm exists
 KVM acceleration can be used
@@ -32,13 +36,15 @@ Next, install the following packages:
 sudo apt install -y qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system
 ```
 
+This installs QEMU, the GUI desktop VM management app `virt-manager`, and the `libvirt` virtualization library and API, and the `libvirtd` system service. These will provide tools that make it easier to manager virtual machines, networks, and resources.
+
 ## Add User To kvm libvirt Groups
 Check if your account is added to the `libvirt` and `kvm` groups:
 ```
-groups
+groups $USER
 ```
 
-Add your user to the kvm and libvirt groups if not:
+Add your user to the kvm and libvirt groups if they aren't added:
 ```
 sudo usermod -aG kvm $USER
 ```
@@ -91,4 +97,6 @@ I'll be using the `default` virtual network for the labs. It will be like a wide
 ## virt-manager 
 I'll be using the [virt-manager](https://virt-manager.org/) graphical user interfce (GUI) tool to manage the VMs. If you just installed `libvirt`, you may get an error message saying "Unable to connect to libvirt qemu:///system." Try logging out of your desktop environment and logging back in.
 
-In the next lab, I'll create the VMs and have them communicate with eachother over the `default` virtual network.
+If you didn't add your user to the `libvirt` group, you may need to enter your password to run it with sudo.
+
+In the next step, I'll create the VMs and have them communicate with eachother over the `default` virtual network.
