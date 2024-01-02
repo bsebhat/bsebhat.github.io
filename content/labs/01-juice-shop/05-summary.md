@@ -10,4 +10,4 @@ I added another VM called `customer` by clonging the `sysadmin` workstation VM a
 I also created a new user called `juiceshop` to run the service, instead of using the superuser `root`.
 
 Right now, this is what the lab looks like:
-![libvirt diagram](../../diagrams/lab-01-systemd.drawio.png)
+![juice-shop diagram](../../diagrams/lab-01-juice-shop.drawio.png)

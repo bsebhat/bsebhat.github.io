@@ -45,45 +45,45 @@ Now, I add the HTTP service. This will allow traffic on the HTTP port 80.
 sudo firewall-cmd --zone=public --add-service=http --permanent
 ```
 
-It's the same as using the `--add-port=80/tcp`, but because it's a common service, you can just use the service name and nginx will know the port and protocol because it's predefined.
+It's the same as using the `--add-port=80/tcp`, but because it's a common service, you can just use the service name and nginx will know the port and protocol because it's predefined in nginx.
 
 Then, I reload the firewall:
 ```
 sudo firewall-cmd --reload
 ```
-
-The `nginx` service will forward traffic to that port 80 to the port 3000, and the juice-shop web application will see that as HTTP requests as if it's coming from the same machine, `juiceshop` (localhost).
-
-Start/enable nginx service:
+And I enable and start the nginx service:
 ```
 sudo systemctl enable --now nginx.service
 ```
 
-Check status for nginx and juice-shop services:
+Now, the `nginx` service will run a reverse proxy service that forwards traffic that uses the open port 80 into the closed port 3000, and the juice-shop web application will see that as HTTP requests coming to its port 3000 as if it's coming from itself, `juiceshop`.
+
+
+I can check the  status for the `nginx` and `juice-shop` services:
 ```
 sudo systemctl status nginx
 sudo systemctl status juice-shop
 ```
 
-Open browser and go to `http://juiceshop:80` or `http://juiceshop`
+They're running. However, when I open a web browser on `sysadmin` and go to `http://juiceshop:80` or `http://juiceshop`, I get an error message saying "Bad Gateway".
 
-There's a Bad Gateway error.
+So, I check the `nginx` service error log at `/var/log/nginx/error.log`. And I see `(permission denied)`. This is a clue that it might be the security software `SELinux` blocking the service.
 
-Check the nginx error log at `/var/log/nginx/error.log`
-
-See `(permission denied)`, might be SELinux.
-
-Test by turning off SELinux enforcement:
+To test if it's `SELinux`, I disable it:
 ```
 sudo setenforce 0
 ```
 
-The `http://juiceshop:80` is accessible. Turn it back on:
+Now, I go to `http://juiceshop:80` in a web browser and it is accessible. So I need to reconfigure `SELinux` to allow access to the HTTP port 80.
+
+I enable `SELinux` again:
 ```
 sudo setenforce 1
 ```
 
- `httpd_can_network_connect`:
+And I enable the `httpd_can_network_connect` boolean (allows HTTPD services to connect to the network with HTTP port 80 with the TCP protocol):
 ```
 sudo setsebool -P httpd_can_network_connect 1
 ```
+
+Now, I'm able to access `http://juiceshop:80` and it is accesible. And users don't need to include the `:80` in the URL when accessing the web application with their browsers.

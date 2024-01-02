@@ -22,7 +22,10 @@ I'd like to make a change to how the Juice Shop web application is run by its se
  WantedBy=multi-user.target
 ```
 
-The `User=root` means the service will run the NodeJS web application as the user root. This is very insecure, because the root user has the highest privilege in Linux, and can do anything on the `juiceshop` web server. I would like to create a lower permission user called `juiceshop` who is just there to run that Juice Shop web application. There's no reason to use the `root` user to run the `npm start` command that runs the web application.
+## Run as root
+In the `[System]` section, I set `User=root`. This means the service will run as the superuser [root](https://www.ssh.com/academy/pam/root-user-account). This is very insecure, because the root user has the highest privilege in Linux, and can do anything on the `juiceshop` web server. I would like to create a lower permission user called `juiceshop` who is just there to run that Juice Shop web application. This reduces the privilege of the service to the minimum required to run the web application, following the ["least privilege principle"](https://www.ibm.com/docs/en/aix/7.2?topic=privileges-least-privilege-principle). 
+
+I don't see any reason why the `root` user is required to run the `npm start` command that runs the web application. The `/opt/juice-shop` directory is owned by the `root` user, so if I change the service definition to run as a non-superuser account, there will be a permission error. But I can change the ownership for the `/opt/juice-shop` directory (and, recursively, the files and directories inside it) to be any other user using the linux command `sudo chown -R <user>:<group> <path>`.
 
 The code and database for the application are all contained in the directory `/opt/juice-shop`. So I will change the owner of that directory (and recursively, its content) to be this new user `juiceshop`.
 
@@ -90,7 +93,7 @@ Restart=on-failure
 WantedBy=multi-user.target
 ```
 
-Because I changed that service file, I need to reload it:
+Because I changed the `juice-shop.service` unit file, I need to reload it:
 ```
 sudo systemctl daemon-reload
 ```
@@ -107,10 +110,3 @@ I modify the systemd service file to use the new user instead of root, and resta
 So now the service running the Juice Shop web application uses a non-sudo, low permission user. And it's restricted to the `/opt/juice-shop` directory. If there were other users on the `juiceshop` web server, they would need sudo permission to access the directory. And they can't login as the new `juiceshop` users.
 
 You can test it by adding anonymous customer feedback and checking the admin panel.
-
-## Conclusion
-Again, this isn't a very good representation of how users/customers interact with web servers on the internet. There would be seperate networks connected by devices like routers. For this lab, I treated the `default` virtual network like a wide area network (WAN) where users can connect to web servers, and IT staff can manage the servers from seperate machines. I just wanted to start adding some VMs for future labs.
-
-This was just a lab to setup the web application on the Linux server VM, and configure a systemd service to get it running when the VM starts.
-
-It's also a very insecure way of allowing users to access the Juice Shop web application. The user on the `customer` VM can directly access the `juiceshop` web server, and it's running SSH so the `sysadmin` can manage it.
