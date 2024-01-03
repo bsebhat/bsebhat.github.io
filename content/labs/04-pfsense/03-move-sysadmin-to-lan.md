@@ -1,5 +1,5 @@
 ---
-title: 07 Connect sysadmin to LAN
+title: 03 Connect sysadmin to LAN
 type: docs
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: 05 Create LAN Network
+title: 01 Create LAN Network
 type: docs
 ---
 

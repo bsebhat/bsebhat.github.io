@@ -1,5 +1,5 @@
 ---
-title: Lab 03 - pfSense
+title: Lab 04 - pfSense
 type: docs
 next: 01-add-hacker-vm
 ---

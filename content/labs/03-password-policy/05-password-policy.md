@@ -1,5 +1,5 @@
 ---
-title: 04 Password Policy
+title: 05 Password Policy
 type: docs
 ---
 
@@ -44,19 +44,40 @@ I've heard that this is common in smaller and less formal organizations. It's be
 ## Set Password Strength Requirement
 *NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juiceshop` VM first. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
 
-To change the password requirement to include a minimum length, and require at least one digit and special character (like `*#@&$`) I will change that line in the `/etc/pam.d/system-auth` file:
+## Authselect
+The password requirements can be defined in the `/etc/pam.d/system-auth` file. However, that file and authentication configuration files in the `/etc/pam.d` directory are managed by the [Authselect](https://github.com/authselect/authselect) service. It's a tool that standardizes the configuration of sensitive authentication configuration files like the `/etc/pam.d/system-auth` file.
+
+Authselect uses profiles to manage different ways of configuring authentication for a system. I can see a list of profiles with this command:
 ```
-sudo vim /etc/pam.d/system-auth
+sudo authselect list
 ```
 
-The line is currently this:
+I see this output:
 ```
-password    requisite       pam_pwquality.so local_users_only
+- minimal                	 Local users only for minimal installations
+- sssd                   	 Enable SSSD for system authentication (also for local users only)
+- winbind                	 Enable winbind for system authentication
 ```
 
-And I will change it to this:
+I want to create a new custom profile so I can add my custom password requirements. I name it `strong-passwords`:
 ```
-password    requisite     pam_pwquality.so local_users_only retry=3 minlen=10 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1 dictcheck=1
+sudo authselect create-profile strong-passwords -b sssd
+```
+
+## Edit system-auth In New Authselect Profile
+I can then edit the `system-auth` file in my custom profile `strong-passwords`:
+```
+sudo vim /etc/authselect/custom/strong-passwords/system-auth
+```
+
+In that `system-auth` file in my `strong-passwords` authselect profile, I edit this line:
+```
+password    requisite                                    pam_pwquality.so local_users_only
+```
+
+to include my custom password requirements:
+```
+password    requisite     pam_pwquality.so local_users_only retry=4 minlen=10 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1 dictcheck=1
 ```
 The additional settings are:
 1. `retry=4`: This gives the user 4 attempts to enter a password that meets the password requirements.
@@ -79,17 +100,21 @@ I create a bash script at `/usr/local/bin/show_password_policy.sh`:
 sudo vim /usr/local/bin/show_password_policy.sh
 ```
 
-It will print the password policy using the `echo` command:
+This script will print the password requirements using the `echo` command:
 ```bash
 #!/bin/bash
-echo "Hello. Here's the password policy:"
-echo "Minimum length 10 characters"
-echo "At least one number"
-echo "At least one uppercase letter"
-echo "At least one lowercase letter"
-echo "At least one special character"
-echo "Cannot be a commonly used password"
-echo "You can use an online password generator, like this:"
+echo "====================================================="
+echo "Guess what time it is? That's right. It's change your password time!"
+echo "====================================================="
+echo "Here's a friendly reminder of the password policy:"
+echo "1. Minimum length is 10 characters"
+echo "2. At least one number"
+echo "3. At least one uppercase letter"
+echo "4. At least one lowercase letter"
+echo "5. At least one special character"
+echo "6. Cannot be a commonly used password or word."
+echo "You will get 4 attempts to change the password."
+echo "If you're having a hard time thinking of a new one, you can use an online password generator like 1password:"
 echo "https://1password.com/password-generator/"
 ```
 
@@ -98,48 +123,86 @@ I make the bash script executable:
 sudo chmod +x /usr/local/bin/show_password_policy.sh
 ```
 
-To get it to run for all accounts with the bash script, I modify the `/etc/profile` file:
+I want this message to be printed to the console whenever passwords are changed. I edit that file in my Authselect profile:
 ```
-sudo vim /etc/profile
-```
-
-And I add this to the end of the file:
-```bash
-if [ ! -f $HOME/.first_login ]; then
-    /usr/local/bin/show_password_policy.sh
-    touch $HOME/.first_login
-fi
+sudo vim /etc/authselect/custom/strong-passwords/system-auth
 ```
 
-It will execute the `/opt/show_password_policy.sh` when a user logs in the first time. It determines if it's the first time by checking if the `.first_login` emptry file exists in the `$HOME` directory.
+And I add this line to the beginning of the password section:
+```
+password requisite pam_exec.so stdout /usr/local/bin/show_password_policy.sh
+```
 
-This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.
+And I select that Authselect profile, so the authentication files will get updated:
+```
+sudo authselect select custom/strong-passwords with-sudo --force
+```
 
-TODO: Correct this so password policy is called by PAM. Not currently working.
+NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.
 
 ## Test New User Password Policy
 Previously, I used the superuser `vmadmin` to create a weak password for the new user `support`, and allowed them to keep using it after they logged in. This created an attack surface for `hacker` to exploit, and the password was discovered using a brute force login cracking tool.
 
-This time, I will create a new user with a strong password that follows the password policy I created in the `/etc/pam.d/system-auth` file. I will share that initial password with the new user (let's say I wrote it on a paper and handed it to them and told them to eat it after using it). And they will be required to enter a new password.
+This time, I will create a new user with a strong password that follows the password policy I created.
+
+If this was a real life scenario, I would need to securely share that initial password with the new user. Let's say I wrote it on a paper and handed it to them. And they will be required to enter the initial password the first time, then change it to a password matching the requirements.
 
 I create a new user named `jim`:
 ```
 sudo adduser jim
 ```
 
-I give it a strong password I generated online (for example: `*nB-myEfi1`):
+Then, I give `jim` a strong initial password.
 ```
 sudo passwd jim
 ```
 
-Then, set the password for `jim` to expire, so the user has to change it on next login:
+For example, a password that matches the password requirements is:
+```
+*nB-myEfi1
+```
+
+NOTE: While I'm setting the password for a user using the `sudo passwd` command, I'm exempt from the password requirements. They will display warnings, but I can give a user any password I want. Even `password1`.
+
+Then, I expire that initial password for `jim`.
 ```
 sudo passwd --expire jim
 ```
 
-To test it out, you can SSH into `juiceshop` as `jim`:
+This means that the next time someone logs in with `jim` and that initial password, they will have to immediately change it to a new password that matches those password requirements:
+
+To test it out, you can SSH into `juiceshop` as `jim` using the initial password:
 ```
 ssh jim@juiceshop
 ```
 
-Because this is the first time, you should see the password policy message. Then, you must enter the CURRENT password you just entered, the initial one created. Then, you enter the NEW password.
+Because this is the first time, you should see a system message saying you are required to change the password. You'll be asked to re-enter the current password (the initial one):
+```
+WARNING: Your password has expired.
+You must change your password now and login again!
+Changing password for user jim.
+Current password:
+```
+
+You must again enter the initial password you just entered.
+
+Then, you will be asked to enter a new password. You should see the password policy message, giving the requirements for a password, printed:
+```
+=====================================================
+Guess what time it is? That's right. It's change your password time!
+=====================================================
+Here's a friendly reminder of the password policy:
+1. Minimum length is 10 characters
+2. At least one number
+3. At least one uppercase letter
+4. At least one lowercase letter
+5. At least one special character
+6. Cannot be a commonly used password or word.
+You will get 4 attempts to change the password.
+If you're having a hard time thinking of a new one, you can use an online password generator like 1password:
+https://1password.com/password-generator/
+```
+
+If you successfully change your password, you
+
+If you're using SSH, and you are able to change your password, you will still be disconnected. You will need to reconnect, and enter the new password.

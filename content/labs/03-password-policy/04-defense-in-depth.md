@@ -1,5 +1,5 @@
 ---
-title: 03 Defense In Depth
+title: 04 Defense In Depth
 type: docs
 ---
 
@@ -11,7 +11,7 @@ This may require multiple defense strategies working together to effectively red
 I think there are three defense solutions that can work together:
 1. Ban Brute Force SSH Attempts: Keep the `fail2ban` service, so that 3 failed SSH attempts cause the IP address to be banned.
 2. Password Policy: Do not allow user accounts on `juiceshop` to use weak passwords, or passwords that can be found in wordlists like the one used by `hacker`, `rockyou.txt`. Simply having an administrative "best practices" policy won't be enough.
-3. Isolated Network: Create a isolated network between machines used for managing the `juiceshop` web server (in these lab, just the `sysadmin` workstation) and the VMs on the `default` virtual network. I'm going to treat the `default` virtual network like a wide are network, or ["WAN"](https://en.wikipedia.org/wiki/Wide_area_network), and not trust traffic coming from it. It will have regular users (`customer`), and malicious users (`hacker`).
+3. Isolated Network: Create a isolated network between machines used for managing the `juiceshop` web server (in these lab, just the `sysadmin` workstation) and the VMs on the `default` virtual network. I'm going to treat the `default` virtual network like a wide are network, or ["WAN"](https://en.wikipedia.org/wiki/Wide_area_network), and not trust traffic coming from it. It will have regular users (`customer`), and malicious users (`hacker`). I'll work on this in the next lab involving the pfSense firewall and a new isolated `LAN` network.
 
 For the new isolated network and the existing `default` network, a firewall server can be added between them, managing what traffic is passed between them. It can act as a gateway server. This will also provide a way to log the traffic, and monitor it. The firewall server will have a easy-to-use firewall software called .
 

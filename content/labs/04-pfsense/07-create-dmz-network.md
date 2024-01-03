@@ -1,5 +1,5 @@
 ---
-title: 02 Create DMZ
+title: 07 Create DMZ Network
 type: docs
 ---
 

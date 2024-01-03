@@ -1,5 +1,5 @@
 ---
-title: 01 Why DMZ?
+title: 06 Why DMZ?
 type: docs
 ---
 

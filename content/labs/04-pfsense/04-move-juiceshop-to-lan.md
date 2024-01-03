@@ -1,5 +1,5 @@
 ---
-title: 08 Connect juiceshop to LAN
+title: 04 Connect juiceshop to LAN
 type: docs
 ---
 
