@@ -12,18 +12,19 @@ Using the `hacker` VM, you can run common recon tasks to gain information about 
 ## Create hacker VM
 I want to install the Kali Linux operating system on the `hacker` VM. I could just clone the `sysadmin` workstation, rename it, and install the penetration tools I'll use. But I think I'll use the Kali OS because it comes with commonly used tools, and I can use easily try them out in future labs.
 
-The download page on the official website provides an ISO file that can be used to create a custom installation. But there's also an option of downloading pre-built VM images for hypervisors like VMware, VirtualBox, and QEMU. 
+## Download Kali Linux QEMU Image
+The download page on the official website provides an ISO file that can be used to create a custom installation. But there's also an option of downloading [pre-built VM images](https://www.kali.org/get-kali/#kali-virtual-machines) for hypervisors like VMware, VirtualBox, and QEMU. 
 
-I download the QEMU VM file. It's a 3 GB 7zip compression of a qcow2 file. I extract it, to get the qcow2 file.
+I download the QEMU VM file. It's a 3 GB 7zip compression of a `.qcow2` file. I extract it to get the qcow2 file.
 
 I create a VM called `hacker` using the `virt-manager` application, and in the first step I select "Import an existing disk image" as the method of OS installation.
 
-The username and password for the VM are both "kali".
+The username and password to login to the Kali Linux operating system are both `kali`.
 
+## Access juiceshop From hacker
 The `hacker` VM is connected to the same `default` virtual network as the other VMs, and gets leased an IP address from the DHCP service. I'm able to open a browser and connect to the `juiceshop` via `http://juiceshop`.
 
-## Use Hacker To Exploit juiceshop
-The Kali Linux OS comes with many popular penetration applications. 
+I'll be using the `hacker` VM to exploit vulnerabilities in the `juiceshop` server, and the `juice-shop` OWASP web application it's running. In the next step, I'll use the `hydra` login cracking tool pre-installed on Kali Linux to attempt to gain access to the SSH service running on `juiceshop`.
 
-TODO: include attempts to exploit `juiceshop`
-nmap scan, nikto web scanning of, and hydra ssh brute force attempts, and /var/log/secure evidence of brute force attack, etc.
+At this point, this is what the lab looks like:
+![diagram](../../diagrams/lab-03-pfsense-hacker.drawio.png)

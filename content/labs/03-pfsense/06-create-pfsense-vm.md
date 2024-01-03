@@ -1,5 +1,5 @@
 ---
-title: 03 Create pfSense VM
+title: 06 Create pfSense VM
 type: docs
 ---
 
