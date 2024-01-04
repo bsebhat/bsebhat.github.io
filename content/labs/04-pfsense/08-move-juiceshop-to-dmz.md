@@ -99,4 +99,4 @@ As a test, you can create a pfSense firewall rule for the "DMZ" interface allowi
 ```
 sudo ls -lh /opt/juice-shop/malware
 ```
-The `malware` file in the `juiceshop` directory `/opt/juice-shop` now has over 6 MB.
+The `malware` file in the `juiceshop` directory `/opt/juice-shop` now has over 6 MB. If I delete that DMZ pfsense firewall rule, delete the `malware` file, and try again, it's back and has 0 MB.
