@@ -31,3 +31,24 @@ For machines with static IP addresses, I'll need to add them to the "Host Overri
 ## Connect to Internet
 After I restart the `pfsense` VM, I'm able to access the internet from the `sysadmin` VM. 
 
+
+## Access pfsense webConfigurator Admin Tool
+The interface connected to the `LAN` network has the static IPv4 address `192.168.1.1`. The web admin tool is running on the HTTPS/443 port, so I can access it from the `sysadmin` VM (which is now also on the `LAN` network) by putting this in the `sysadmin` web browser:
+```
+https://192.168.1.1
+```
+
+This shows a warning page, because it's running on HTTPs and using a certificate that my browser doesn't trust. I have to acknowledge the warning and choose to proceed.
+
+Then, it shows a login page. The default password for the `root` account is `pfsense`. After logging in, it warns me that I should change the default password.
+
+## pfsense Interfaces
+There are currently two interfaces on `pfsense`: "LAN" and "WAN". They are the two virtual NICs I added to the VM, connected to the `default` virtual network I used in previous labs, and the new one I just created called `LAN`.
+
+During installation, I configured the pfSense firewall software to consider the `default` virtual network to be the "WAN". It will treat traffic coming from there to be like the internet. So the `customer` and `hacker` VMs are like other devices on the "WAN". 
+
+The devices on the "LAN" interface (which is connected to the virtual network I also named `LAN`) are, for now, just the `sysadmin` VM. By default, the `LAN` network is given the most permissive firewall rules. This means I can use any protocol. I can ping other machines using the ICMP protocol. I can access websites on the internet using TCP or UDP. I'm going to leave that, because I plan on using the `sysadmin` as a highly-trusted machine in the labs.
+
+However, the next thing I'll do is add the `juiceshop` to the `LAN` network. I will configure the `pfsense` firewall VM to allow other VMs on the "WAN" (or `default` virtual network) to continue accessing its web application. But not directly.
+
+Then, I'll show why keeping the `sysadmin` and `juiceshop` under the same permissive firewall rules of the `LAN` network might be a bad idea.

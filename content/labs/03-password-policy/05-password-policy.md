@@ -3,12 +3,14 @@ title: 05 Password Policy
 type: docs
 ---
 
-The first layer of defense, blocking after multiple failed SSH login attempts, is being handled by the `fail2ban` service. The next layer, strong passwords, will add another way to prevent brute-force SSH attacks.
+The first layer of defense, blocking after multiple failed SSH login attempts on the `juiceshop`, is being handled by the `fail2ban` service. The next layer, strong passwords, will add another way to prevent brute-force SSH attacks.
 
-I was able to create the `support` Linux user with a weak password: `babygirl`. It was near the top of the wordlist that `hacker` used. And it took a few seconds for the `hydra` login cracker to reach. When I created it, I got a warning that said:
+I was able to create the `support` Linux user on `juiceshop` with a weak password: `babygirl`. It was near the top of the wordlist that `hacker` used. And it took a few seconds for the `hydra` login cracker to reach. When I created it, I got a warning that said:
 ```
 BAD PASSWORD: The password fails the dictionary check - it is based on a dictionary word
 ```
+
+That's because I did it with the `sudo passwd support` command. If I logged in as `support` and tried to change my own password with the
 
 The CentOS Stream 9 operating system running on `juiceshop` uses the [cracklib](https://github.com/cracklib/cracklib) library to check if a password is in a dictionary. You can see the installed packages by running:
 ```
@@ -44,7 +46,7 @@ I've heard that this is common in smaller and less formal organizations. It's be
 ## Set Password Strength Requirement
 *NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juiceshop` VM first. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
 
-## Authselect
+### Authselect
 The password requirements can be defined in the `/etc/pam.d/system-auth` file. However, that file and authentication configuration files in the `/etc/pam.d` directory are managed by the [Authselect](https://github.com/authselect/authselect) service. It's a tool that standardizes the configuration of sensitive authentication configuration files like the `/etc/pam.d/system-auth` file.
 
 Authselect uses profiles to manage different ways of configuring authentication for a system. I can see a list of profiles with this command:
@@ -59,12 +61,39 @@ I see this output:
 - winbind                	 Enable winbind for system authentication
 ```
 
-I want to create a new custom profile so I can add my custom password requirements. I name it `strong-passwords`:
+I can see the current Authselect profile being used:
+```
+sudo authselect current
+```
+
+It's the `sssd` profile.
+
+I want to create a new custom profile so I can add my custom password requirements. I name it `strong-passwords`, and base it on the current profile, `sssd`:
 ```
 sudo authselect create-profile strong-passwords -b sssd
 ```
 
-## Edit system-auth In New Authselect Profile
+I can see a list of available Authselect profiles again:
+```
+- minimal                	 Local users only for minimal installations
+- sssd                   	 Enable SSSD for system authentication (also for local users only)
+- winbind                	 Enable winbind for system authentication
+- custom/strong-passwords	 Enable SSSD for system authentication (also for local users only)
+```
+
+I can change the description for my new custom profile `custom/strong-passwords` by changing the first line of the file `/etc/authselect/custom/strong-passwords/README`:
+```
+sudo vim /etc/authselect/custom/strong-passwords/README
+```
+
+It was copied over from the profile I based my custome profile on, `sssd`.
+
+I can select that new custom profile:
+```
+sudo authselect select custom/strong-passwords
+```
+
+## Edit system-auth In New Custom Authselect Profile
 I can then edit the `system-auth` file in my custom profile `strong-passwords`:
 ```
 sudo vim /etc/authselect/custom/strong-passwords/system-auth
@@ -89,6 +118,11 @@ The additional settings are:
 7. `dictcheck=1`: The password cannot appear in a dictionary of commonly used passwords.
 
 This will require users to choose stronger passwords. However, superusers like `root` can still set weak passwords, or passwords found in dictionaries, and just get a warning. It would be helpful to the `vmadmin` superuser and other new users to communicate the password policy, and provide a way to generate one.
+
+If I decide I want to go back to the previous Authselect profile, `sssd`, I can use the `authselect select` command:
+```
+sudo authselect select sssd
+```
 
 ## Communicate Password Policy
 A huge vulnerability in securing systems, like the server `juiceshop`, is humans. They have to remember and type passwords, and it's easier to keep using a simple one if they're not forced to stop.
@@ -132,13 +166,24 @@ And I add this line to the beginning of the password section:
 ```
 password requisite pam_exec.so stdout /usr/local/bin/show_password_policy.sh
 ```
+The `pam_exec.so` module will execute that `show_password_policy.sh` shell script and the user will see it in the `stdout`. If they're using the `juiceshop` terminal or using SSH to login, it will print on the console.
 
-And I select that Authselect profile, so the authentication files will get updated:
+*NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.*
+
+And I select that custom Authselect profile:
 ```
 sudo authselect select custom/strong-passwords with-sudo --force
 ```
 
-NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.
+I can see the current Authselect profile is the custom one I created:
+```
+sudo authselect current
+```
+
+Now, those authentication configuration files I edited in my custom Authselect profile will be used. If I want to go back, I can select the previous `sssd` profile:
+```
+sudo authselect select sssd
+```
 
 ## Test New User Password Policy
 Previously, I used the superuser `vmadmin` to create a weak password for the new user `support`, and allowed them to keep using it after they logged in. This created an attack surface for `hacker` to exploit, and the password was discovered using a brute force login cracking tool.

@@ -29,3 +29,28 @@ sudo virsh net-define DMZ.xml
 sudo virsh net-start DMZ
 sudo virsh net-autostart DMZ
 ```
+
+## Add DMZ Interface To pfsense
+To allow access to this new isolated `DMZ` network, I'll have to add a new network interface to the `pfsense` server. This involves adding a virtual NIC device, and configuring the pfSense firewall server software to manage access to that interface.
+
+### Add New DMZ Connected NIC to pfsense
+I need to add another NIC to the `pfsense` VM. Just like I did with the `LAN` network interface when I installed the VM, I click the "Add Hardware" button on the VM details view. But this time, I'm selecting the `DMZ` isolated network.
+
+I then start the `pfsense` VM. The new NIC hardware is called `vtnet2`, but it needs to be configured with a label and IP address.
+
+### Configure DMZ Interface in pfSense Firewall 
+This will be like when I added the `LAN` interface. That was configured using the `pfsense` console.
+
+Now, I have the `sysadmin` connected to the `LAN` network, giving me access to the pfSense webConfigurator web admin tool. I'll use this to configure the `DMZ` interface instead of using the console. It's easier.
+
+I open the `sysadmin` VM, go to the `pfsense` gateway for the `LAN` network at `https://192.168.1.1`, and go to the Interfaces / Assignments page. 
+
+On the "Interface Assignments" page, I see the MAC address for the NIC I just added asn an available network port. I click the green "Add" button. 
+
+Now, the interface has been added, with the default "OPT1" name. I then click the "OPT1" link to configure the interface.
+
+I change the name of the interface from "OPT1" to "DMZ", and enable it.
+
+I also assign it the static IPv4 address `192.168.2.1/24`.
+
+Next, I need to configure the `juiceshop` network interface to use the `DMZ` network instead of the `LAN`.

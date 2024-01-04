@@ -50,22 +50,29 @@ The password was still cracked. However, when I attempted to login to `juiceshop
 ssh: connect to host juiceshop port 22: Connection refused
 ```
 
-When I check the `iptables` on the `juiceshop` server:
+The `hacker` VM's IP address has been blocked by the `juiceshop` server. When I check the [nftables](https://wiki.nftables.org/wiki-nftables/index.php/What_is_nftables%3F) on the `juiceshop` server:
 ```
-sudo iptables -n -L
+sudo nft list ruleset
 ```
 
 I see this section at the end of the output:
 ```
-Chain f2b-sshd (1 references)
-target     prot opt source               destination         
-REJECT     all  --  192.168.122.226      0.0.0.0/0            reject-with icmp-port-unreachable
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0    
+table ip filter {
+	chain f2b-sshd {
+		ip saddr 192.168.122.226 counter packets 1 bytes 60 reject
+		counter packets 738 bytes 43540 return
+	}
+
+	chain INPUT {
+		type filter hook input priority filter; policy accept;
+		meta l4proto tcp tcp dport 22 counter packets 739 bytes 43600 jump f2b-sshd
+	}
+}
 ```
 
 This shows the IP address for `hacker` in the `f2b-sshd` iptables chain. If I want to just list the blocked IP addresses in that `f2b-sshd` chain, I can run this:
 ```
-sudo iptables -L f2b-sshd -v -n
+sudo nft list chain ip filter f2b-sshd
 ```
 
 To unban an IP address, use this command:
@@ -75,11 +82,13 @@ sudo fail2ban-client set sshd unbanip <IP-ADDRESS>
 
 To make this easier in the future, I can add those commands as [bash aliases](https://linuxize.com/post/how-to-create-bash-aliases/) in the `~/.bashrc` file:
 ```bash
-alias f2b_list_banned="sudo iptables -L f2b-sshd -v -n"
+alias f2b_list_banned="sudo nft list chain ip filter f2b-sshd"
 alias f2b_unban="sudo fail2ban-client set sshd unbanip $1"
 ```
 
-Then, make that change available in your current session:
+This allows me to run `f2b_list_banned` as an alias for that `nft` command, and `f2b_unban X`, with "X" being a banned IP address, as an alias for the `fail2ban-client` command, passing the X IP address as that last argument in the `fail2ban-client` command.
+
+Then, I make that change available in my current session:
 ```
 source ~/.bashrc
 ```

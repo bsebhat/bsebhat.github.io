@@ -25,7 +25,11 @@ I create a new XML file called `LAN.xml`, and add these lines:
  </network>
 ```
 
-This doesn't define `LAN` as providing DNS or DHCP services. It's basically just a network switch. I'll have the `pfsense` server provide those. It just has a name, IP address, and netmask. The IP address and netmask configure the network switch so that VMs using the IPv4 addresses ranging from `192.168.1.1` to `192.168.1.254` will be able to communicate with each other on this network.
+This doesn't define `LAN` as providing DNS or DHCP services, unlike the `default` network created by libvirt. If `default` acts like a switch/router, this `LAN` is more like a simple switch. VMs can communicate with each other on it.
+
+You can see from the XML definition that I just gave it a name, IP address, and netmask. The IP address and netmask configure the network switch so that VMs using the IPv4 addresses ranging from `192.168.1.1` to `192.168.1.254` will be able to communicate with each other on this network. After I define it with the `virsh net-define` command, it will be given a randomly generated UUID and MAC address, and a new virtual bridge will be created.
+
+I'll have the `pfsense` server connected to this `LAN` isolated network, providing the DHCP, DNS, and gateway services. It will manage what comes in and out of this isolated network. 
 
 #### virsh net-define LAN.xml
 I list of current virtual networks:
@@ -81,6 +85,18 @@ And then list the networks again, to get:
 --------------------------------------------
  default   active   yes         yes
  LAN       active   yes         yes
+```
+
+#### virsh net-dumpxml LAN
+I can see the definition of the `LAN` virtual network, and see the other attributes it was given by libvirt:
+```
+sudo virsh net-dumpxmp LAN
+```
+
+Here is the output:
+TODO: add the xml definition for LAN
+```xml
+
 ```
 
 Next, I'm going to add the `pfsense` VM to the lab, connect it to the `LAN` and `default` virtual networks, install the FreeBSD operating system and pfSense firewall software on it, and have it be a gateway/router between the VMs on the `LAN` network and the customer's `juiceshop` VM on the `default` network.
