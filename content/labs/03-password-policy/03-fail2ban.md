@@ -9,12 +9,12 @@ One open source too that does this is [fail2ban](https://github.com/fail2ban/fai
 
 I install the package:
 ```
-sudo dnf install fail2ban
+sudo dnf install -y fail2ban
 ```
 
 I create a new config file:
 ```
-cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 ```
 
 And edit the file:

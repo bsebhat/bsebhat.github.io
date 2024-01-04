@@ -170,7 +170,7 @@ The `pam_exec.so` module will execute that `show_password_policy.sh` shell scrip
 
 *NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.*
 
-And I select that custom Authselect profile:
+And, because I changed the custom profile's `system-auth` file, I select it again to reload it:
 ```
 sudo authselect select custom/strong-passwords with-sudo --force
 ```
