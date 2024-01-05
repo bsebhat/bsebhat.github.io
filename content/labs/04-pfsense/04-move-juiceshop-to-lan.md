@@ -7,7 +7,7 @@ type: docs
 I use the same method of changing the network source for the NIC on the `juiceshop` VM.
 
 ## Change juiceshop NetworkManager settings
-The `juiceshop` VM  uses a static IP address, because it's a server and I want to use that IP in other VMs. So to allow communication between the `jucieshop` NIC and the other VMs on the `LAN` network, I need to change its static IP address from `192.168.122.21` to `192.168.1.21`. It could be anything between `192.168.1.2` dnd `192.168.1.254`, but I want the static IPs using the addresses not in the DHCP range, and to keep the 21 in the last octet.
+The `juiceshop` VM  uses a static IP address, because it's a server and I want to use that IP in other VMs. So to allow communication between the `jucieshop` NIC and the other VMs on the `LAN` network, I need to change its static IP address from `192.168.122.10` to `192.168.1.10`. It could be anything between `192.168.1.2` dnd `192.168.1.254`, but I want the static IPs using the addresses not in the DHCP range, and to keep the 21 in the last octet.
 
 I'll use the NetworkManager cli tool `nmcli` on `juiceshop` to change the static IP, gateway and and DNS settings for the "Wired Connection 1" connection:
 ```

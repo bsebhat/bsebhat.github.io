@@ -34,7 +34,7 @@ I'll have the `pfsense` server connected to this `LAN` isolated network, providi
 #### virsh net-define LAN.xml
 I list of current virtual networks:
 ```
-sudo virsh net-list --all
+virsh net-list --all
 ```
 
 The output:
@@ -46,7 +46,7 @@ The output:
 
 Define a LAN network using the LAN.xml file:
 ```
-sudo virsh net-define LAN.xml
+virsh net-define LAN.xml
 ```
 
 I list the virtual networks again with `virsh net-list --all`, and the output is:
@@ -60,7 +60,7 @@ I list the virtual networks again with `virsh net-list --all`, and the output is
 #### virsh net-start LAN
 I start the virtual network:
 ```
-sudo virsh net-start LAN
+virsh net-start LAN
 ``` 
 
 I list the virtual networks again, and the output is:
@@ -76,7 +76,7 @@ I want the LAN to autostart, so I won't have to run the `virsh net-start` comman
 
 I run:
 ```
-sudo virsh net-autostart LAN
+virsh net-autostart LAN
 ```
 
 And then list the networks again, to get:
@@ -90,13 +90,27 @@ And then list the networks again, to get:
 #### virsh net-dumpxml LAN
 I can see the definition of the `LAN` virtual network, and see the other attributes it was given by libvirt:
 ```
-sudo virsh net-dumpxmp LAN
+virsh net-dumpxml LAN
 ```
 
 Here is the output:
 TODO: add the xml definition for LAN
 ```xml
-
+<network connections='1'>
+  <name>LAN</name>
+  <uuid>dd319edd-ef03-4e6d-815e-d446ca42b79c</uuid>
+  <bridge name='virbr1' stp='on' delay='0'/>
+  <mac address='52:54:00:06:f2:8c'/>
+  <ip address='192.168.1.0' netmask='255.255.255.0'>
+  </ip>
+</network>
 ```
 
 Next, I'm going to add the `pfsense` VM to the lab, connect it to the `LAN` and `default` virtual networks, install the FreeBSD operating system and pfSense firewall software on it, and have it be a gateway/router between the VMs on the `LAN` network and the customer's `juiceshop` VM on the `default` network.
+
+## Network Topology
+This is what the network looked like before adding the `LAN` network:
+![diagram](../../diagrams/lab-03-password.drawio.png)
+
+This is what the network topology will look like with the `LAN` network and the `sysadmin` and `juiceshop` VMs moved:
+![diagram](../../diagrams/lab-04-pfsense-LAN.drawio.png)

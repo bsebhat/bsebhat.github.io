@@ -34,4 +34,4 @@ The `hacker` VM is connected to the same `default` virtual network as the other 
 I'll be using the `hacker` VM to exploit vulnerabilities in the `juiceshop` server, and the `juice-shop` OWASP web application it's running. In the next step, I'll use the `hydra` login cracking tool pre-installed on Kali Linux to attempt to gain access to the SSH service running on `juiceshop`.
 
 At this point, this is what the lab looks like:
-![diagram](../../diagrams/lab-03-pfsense-hacker.drawio.png)
+![diagram](../../diagrams/lab-03-password.drawio.png)

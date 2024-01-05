@@ -28,20 +28,6 @@ I go to the `Services / DNS Resolver / General Settings` page and select the "Re
 
 For machines with static IP addresses, I'll need to add them to the "Host Overrides" section.
 
-## Connect to Internet
-After I restart the `pfsense` VM, I'm able to access the internet from the `sysadmin` VM. 
-
-
-## Access pfsense webConfigurator Admin Tool
-The interface connected to the `LAN` network has the static IPv4 address `192.168.1.1`. The web admin tool is running on the HTTPS/443 port, so I can access it from the `sysadmin` VM (which is now also on the `LAN` network) by putting this in the `sysadmin` web browser:
-```
-https://192.168.1.1
-```
-
-This shows a warning page, because it's running on HTTPs and using a certificate that my browser doesn't trust. I have to acknowledge the warning and choose to proceed.
-
-Then, it shows a login page. The default password for the `root` account is `pfsense`. After logging in, it warns me that I should change the default password.
-
 ## pfsense Interfaces
 There are currently two interfaces on `pfsense`: "LAN" and "WAN". They are the two virtual NICs I added to the VM, connected to the `default` virtual network I used in previous labs, and the new one I just created called `LAN`.
 

@@ -28,14 +28,37 @@ I go through the pfSense installation choosing the default options.
 ## Configure Network Interfaces
 I configured the `pfsense` VM with two NICs: one connected to the `LAN` network and one connected to the `default` network. The `default` network is in NAT mode giving access to the internet, and the `LAN` network is in isolated mode.
 
+### WAN=vtnet0=default, LAN=vtnet1=LAN
 When I'm configuring these interfaces in the pfSense software, I'll have the NIC connected to the `default` as the "WAN" interface, and the NIC connected to the `LAN` network is the "LAN" interface.
 
 In the pfSense software, that first NIC is the `vtnet0` device, and the NIC I added for the `LAN` network is the `vtnet1` device. The MAC addresses match up.
 
-When I assign the interfaces, I set the `vtnet0` interface device be the "WAN", and the `vtnet1` interface be the "LAN". The "WAN" interface got the IP address `192.168.122.178/24` address from the `default` network DHCP. But I haven't set the IP address for the "LAN" interface.
+#### WAN Interface 192.168.122.10
+When I assign the interfaces, I set the `vtnet0` interface device be the "WAN", and the `vtnet1` interface be the "LAN". The "WAN" interface (connected to the `default` network) will be given the static IP address `192.168.122.10/24`. And its default gateway will be that `default` network gateway provided by `libvirt`: `192.168.122.1`. Whenever `pfsense` or VMs on the isolated networks that `pfsense` is the gateway for need to acces the internet, they will use this `default` network gateway.
 
-When I defined the `LAN` virtual network, I gave it the IP address `192.168.1.0` with a netmask `255.255.255.0`. I'll use this `pfsense` VM as a gateway for the `LAN` network, so I'll assign it the static IP address `192.168.1.1` with a CIDR of 24. 
+#### LAN Interface 192.168.1.1
+I don't need to set the IP address for the "LAN" interface. The `pfsense` firwall server assigned it the `192.168.1.1` address. This is a common IP address numbering convention for gateways to use the first available IP address. This will be the gateway for the VMs on the `LAN` network. When I defined the `LAN` virtual network, I gave it the IP address `192.168.1.0` with a netmask `255.255.255.0`. I'll use this `pfsense` VM as a gateway for the `LAN` network, so I'll assign it the static IP address `192.168.1.1` with a CIDR of 24. 
 
-I also enable DHCP on `LAN`, with a range of `192.168.1.100` to `192.168.1.254`.
+I also enable DHCP on `LAN`. It will have a DHCP range of `192.168.1.100` to `192.168.1.254`. When a VM gets leased an IP address from this DHCP service, it will be in that range.
 
-Next, I'll connect the `sysadmin` VM to the `LAN` network, configure it to use this `pfsense` server as a gateway and DNS server, and use the pfSense webConfigurator admin tool.
+## Map pfsense Hostname In default DNS
+Because I'm giving the `pfsense` interface connected to the `default` virtual network the static IP address `192.168.122.20`, I should update the `default` network's definition with the `virsh net-edit` command:
+```
+virsh net-edit default
+```
+
+Because I will be moving the `juiceshop` off the `default` network, while I'm adding the new `pfsense` as a gateway, I'll remove this `<host>` entry for `juiceshop` and add a new `<host>` for `pfsense` and its IP address.
+
+Which, as far as editing goes, just means I'm changing the existing entry to map the `pfsense` IP address `192.168.122.10` to be the hostname for the `pfsense` VM.
+
+This change will require me to close the other VMs and close `virt-manager`, and destroy the `default` network:
+```
+virsh net-destroy default
+```
+And start it up again:
+```
+virsh net-start default
+```
+
+## Next, Move VMs to LAN
+Next, I'll connect the `sysadmin` VM to the `LAN` network, configure it to use this `pfsense` server as a gateway and DNS server, and use the pfSense webConfigurator admin tool. I'll use that static IP address I gave the `pfsense` interface connected to the `LAN` network, `192.168.1.1`, as the gateway and DNS ip address when updating the `sysadmin` and `juiceshop` network settings.

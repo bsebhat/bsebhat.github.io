@@ -25,9 +25,9 @@ This `DMZ` network will have the IP address `192.168.2.0`, while the `LAN` netwo
 
 Then, I'll create a new virtual network with that file, start it, and set it to autostart:
 ```
-sudo virsh net-define DMZ.xml
-sudo virsh net-start DMZ
-sudo virsh net-autostart DMZ
+virsh net-define DMZ.xml
+virsh net-start DMZ
+virsh net-autostart DMZ
 ```
 
 ## Add DMZ Interface To pfsense
