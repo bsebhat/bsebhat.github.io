@@ -3,11 +3,11 @@ title: 07 Create DMZ Network
 type: docs
 ---
 
-At this point, the `pfsense` server is acting as a gateway between the `default` network and the isolated `LAN` network, and the `juiceshop` and `sysadmin` are on the same `LAN` network.
+At this point, the `pfsense` server is acting as a gateway between the `default` network and the isolated `LAN` network, and the `juicero` and `sysadmin` are on the same `LAN` network.
 
-Right now, there's just two internal machines: `juiceshop` and `sysadmin`. But let's say we need to add an FTP file server or database server to the internal `LAN` that contains important employee data or juice recipes. 
+Right now, there's just two internal machines: `juicero` and `sysadmin`. But let's say we need to add an FTP file server or database server to the internal `LAN` that contains important employee data or juice recipes. 
 
-If we want to quarantine the `juiceshop` web server used by the public from internal-only desktops and servers, we can add another isolated network for the `juiceshop` web server. This seperates it from other internal machines, with the `pfsense` firewall server acting as a gateway between the two networks. 
+If we want to quarantine the `juicero` web server used by the public from internal-only desktops and servers, we can add another isolated network for the `juicero` web server. This seperates it from other internal machines, with the `pfsense` firewall server acting as a gateway between the two networks. 
 
 
 ## Define DMZ Network
@@ -53,4 +53,4 @@ I change the name of the interface from "OPT1" to "DMZ", and enable it.
 
 I also assign it the static IPv4 address `192.168.2.1/24`.
 
-Next, I need to configure the `juiceshop` network interface to use the `DMZ` network instead of the `LAN`.
+Next, I need to configure the `juicero` network interface to use the `DMZ` network instead of the `LAN`.

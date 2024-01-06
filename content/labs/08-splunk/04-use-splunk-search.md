@@ -3,28 +3,28 @@ title: 04 Use Splunk Search
 type: docs
 ---
 
-Currently, the access logs form the web app running on `juiceshop` are being forwarded to the Splunk Enterprise server running on `splunk`.
+Currently, the access logs form the web app running on `juicero` are being forwarded to the Splunk Enterprise server running on `splunk`.
 
 ## Splunk Search
-And I can use the `soc-analyst` VM to log in to the Splunk web portal at `http://splunk:8000` and view the log data using the Search & Reporting app. It's easier than reading the log files on the `juiceshop` server.
+And I can use the `soc-analyst` VM to log in to the Splunk web portal at `http://splunk:8000` and view the log data using the Search & Reporting app. It's easier than reading the log files on the `juicero` server.
 
-When I configured the Splunk Forwarder on `juiceshop`, I created a configuration file called `inputs.conf` with this:
+When I configured the Splunk Forwarder on `juicero`, I created a configuration file called `inputs.conf` with this:
 ```
 [monitor:///opt/juice-shop/logs/access*]
-index = juiceshop
+index = juicero
 ```
 
-So when I open the Search app at `http://splunk:8000/en-US/app/search/search`, I can go to the search field and enter `index='juiceshop'` to search the access log data that was forwarded from `juiceshop` to that index.
+So when I open the Search app at `http://splunk:8000/en-US/app/search/search`, I can go to the search field and enter `index='juicero'` to search the access log data that was forwarded from `juicero` to that index.
 
-## Access Log Data on juiceshop
-TODO: Show an example of a juiceshop access log entry
+## Access Log Data on juicero
+TODO: Show an example of a juicero access log entry
 The "sourcetype" for this access log data is "access_log". Splunk uses sourcetypes to determine how to ingest, analyze, and visualize the data being forwarded to it. I didn't specify in the `inputs.conf` file what type of sourcetype those access logs will be. If I look at the events in Splunk, there are many parts of the log entry that aren't being parsed/seperated by Splunk. Some important fields like HTTP method and status code.
 
 ## Improve Splunk Event View
 Now that I can see the access log data as easy to read events in Splunk, I want to make some changes so that the SOC team can use this resource to investigate incidents.
 
 ### Remove Reverse Proxy To Show Client IP
-One problem I'm having is that the source IP address is the localhost. This is because the `nginx` service on the `juiceshop` is receiving HTTP traffic on port 80 and forwarding it to the NodeJS app port 3000. This causes the access logs to show the source IP address as `127.0.0.1` or `localhost`, because it is coming from the same machine.
+One problem I'm having is that the source IP address is the localhost. This is because the `nginx` service on the `juicero` is receiving HTTP traffic on port 80 and forwarding it to the NodeJS app port 3000. This causes the access logs to show the source IP address as `127.0.0.1` or `localhost`, because it is coming from the same machine.
 
 Until I can figure out how to pass the original source IP as an HTTP header that gets logged in the access logs, I'll disable the reverse proxy. This will require all traffic to use the 3000 port. This means the port forwarding NAT rule on `pfsense` needs to be updated.
 
@@ -34,10 +34,10 @@ If I want Splunk to display the log data entries with most of their fields seper
 "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"
 ```
 
-I can modify the `/opt/splunkforwarder/etc/system/local/inputs.conf` Splunk Forwarder config file on `juiceshop` to say the log data is in the `access_combined` sourcetype:
+I can modify the `/opt/splunkforwarder/etc/system/local/inputs.conf` Splunk Forwarder config file on `juicero` to say the log data is in the `access_combined` sourcetype:
 ```
 [monitor:///opt/juice-shop/logs/access*]
-index = juiceshop
+index = juicero
 sourcetype = access_combined
 ```
 

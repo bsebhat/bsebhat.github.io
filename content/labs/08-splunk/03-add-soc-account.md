@@ -16,7 +16,7 @@ I'll give it these capabilities:
 3. schedule_search
 4. edit_search_schedule_window
 
-I'll also add the juiceshop index as incuded and default, because that is the main reason they will use it for now.
+I'll also add the juicero index as incuded and default, because that is the main reason they will use it for now.
 
 ## Create soc-analyst Splunk User
 Now I can create a user called soc-analyst, with the role soc-staff. This gives them the capabilities I gave the soc-staff role.
@@ -26,4 +26,4 @@ I can also set their default app to "Search", because that's what they'll be usi
 ## Login As soc-analyst
 From the `soc-analyst` VM, I can login using that new account. It asks that I change the password because it's the first time loggin in.
 
-I'm brought to the Search app by default after logging in. I can search the juiceshop index, and create a report. However, I can't search other indexes, like the "_internal" index. And the "Settings" menu has fewer items than you see for the admin user.
+I'm brought to the Search app by default after logging in. I can search the juicero index, and create a report. However, I can't search other indexes, like the "_internal" index. And the "Settings" menu has fewer items than you see for the admin user.

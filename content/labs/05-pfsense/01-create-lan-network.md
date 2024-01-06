@@ -3,9 +3,9 @@ title: 01 Create LAN Network
 type: docs
 ---
 
-I'm going to create a an isolated network that the `juiceshop` and `sysadmin` VMs can use to communicate. The `customer` and `hacker` VMs won't have direct access to them, so they won't be able to access the web application running on `juiceshop` by putting `http://juiceshop` in their web browsers.
+I'm going to create a an isolated network that the `juicero` and `sysadmin` VMs can use to communicate. The `customer` and `hacker` VMs won't have direct access to them, so they won't be able to access the web application running on `juicero` by putting `http://juicero` in their web browsers.
 
-So I will need to also configure the pfSense firewall server to forward traffic to its "WAN" (the IP address of its NIC connected to the `default` network) to the `juiceshop`. This will be using the `pfsense` firewall software's network address translation (NAT) service.
+So I will need to also configure the pfSense firewall server to forward traffic to its "WAN" (the IP address of its NIC connected to the `default` network) to the `juicero`. This will be using the `pfsense` firewall software's network address translation (NAT) service.
 
 I'll create the `pfsense` VM that runs the firewall, with 2 NICs: one connected to the `default` virtual network I've been using in the previous labs, and one connected to a new virtual network. I'll call that new network `LAN`. It's common practice to name it something like "vtnet1" or "vmnet2", but I'll just name it `LAN` so it's easier to tell what it is.
 
@@ -106,11 +106,11 @@ TODO: add the xml definition for LAN
 </network>
 ```
 
-Next, I'm going to add the `pfsense` VM to the lab, connect it to the `LAN` and `default` virtual networks, install the FreeBSD operating system and pfSense firewall software on it, and have it be a gateway/router between the VMs on the `LAN` network and the customer's `juiceshop` VM on the `default` network.
+Next, I'm going to add the `pfsense` VM to the lab, connect it to the `LAN` and `default` virtual networks, install the FreeBSD operating system and pfSense firewall software on it, and have it be a gateway/router between the VMs on the `LAN` network and the customer's `juicero` VM on the `default` network.
 
 ## Network Topology
 This is what the network looked like before adding the `LAN` network:
 ![diagram](../../diagrams/lab-03-ssh-brute-force.drawio.png)
 
-This is what the network topology will look like with the `LAN` network and the `sysadmin` and `juiceshop` VMs moved:
+This is what the network topology will look like with the `LAN` network and the `sysadmin` and `juicero` VMs moved:
 ![diagram](../../diagrams/lab-05-pfsense-LAN.drawio.png)

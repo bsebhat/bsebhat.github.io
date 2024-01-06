@@ -5,12 +5,12 @@ type: docs
 
 The `splunk` VM will run the Splunk server, and be accessed by the `soc-analyst` and `sysadmin` desktops.
 
-I'll add the `splunk` server VM similar to the `juiceshop` in the `DMZ` network, with a static IP address. Except the `splunk` VM won't need a port redirect configured, because it won't be accessible to public users in the `WAN` network.
+I'll add the `splunk` server VM similar to the `juicero` in the `DMZ` network, with a static IP address. Except the `splunk` VM won't need a port redirect configured, because it won't be accessible to public users in the `WAN` network.
 
-## Clone juiceshop To Create splunk VM
-I create the `splunk` VM by cloning the `juiceshop` VM and disabling the juice-shop service.
+## Clone juicero To Create splunk VM
+I create the `splunk` VM by cloning the `juicero` VM and disabling the juice-shop service.
 
-This requires changing the static IP, changing the hostname to splunk, and modifying the firewall. Because the VM was cloned from `juiceshop`, remove the 3000/tcp port:
+This requires changing the static IP, changing the hostname to splunk, and modifying the firewall. Because the VM was cloned from `juicero`, remove the 3000/tcp port:
 ```
 sudo firewall-cmd --remove-port=3000/tcp --permanent
 ```
@@ -30,7 +30,7 @@ sudo firewall-cmd --reload
 Because the `splunk` server doesn't use DHCP, I need to manually add the hostname and static IP to the pfSense DNS Resolver service.
 
 ## Install Splunk Enterprise
-To download Splunk Enterprise, the service that will ingest and displays log data from `juiceshop`, use the `sysadmin` VM to log into the Splunk website and go to their [free trials page](https://www.splunk.com/en_us/download.html).
+To download Splunk Enterprise, the service that will ingest and displays log data from `juicero`, use the `sysadmin` VM to log into the Splunk website and go to their [free trials page](https://www.splunk.com/en_us/download.html).
 
 I choose "Splunk Enterprise", and download the RPM package file, because the `splunk` VM has CentOS installed.
 

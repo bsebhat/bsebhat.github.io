@@ -17,9 +17,9 @@ Incident: User put $2999 bike in another users basket
 ### Investigation:
 The user contacted `sysadmin` with an email saying they found the product and never put it in their basket.
 
-I was contacted by `sysadmin` to investigate the incident. I searched the Splunk juiceshop index for mentions of "basket", then "POST /api/BasketItems/", because I was looking for requests to put basket items in baskets.
+I was contacted by `sysadmin` to investigate the incident. I searched the Splunk juicero index for mentions of "basket", then "POST /api/BasketItems/", because I was looking for requests to put basket items in baskets.
 
-I found some suspicious requests that received "HTTP 401" error codes. I then used my soc-analyst account on the `juiceshop` web server to SSH in and search the SQLite database at `/opt/juice-shop/data/juiceshop.sqlite`.
+I found some suspicious requests that received "HTTP 401" error codes. I then used my soc-analyst account on the `juicero` web server to SSH in and search the SQLite database at `/opt/juice-shop/data/juicero.sqlite`.
 
 I used this SQL query to retrieve the product names for all of the basket items and the time they were put in the user's basket:
 ```sql
@@ -46,9 +46,9 @@ That returned these results:
 2023-10-24 16:38:20.411 +00:00|Melon Bike (Comeback-Product 2018 Edition)|2999
 ```
 
-Going back to the Splunk event log for the juiceshop index, I found the POST command to "/api/BasketItems" that matched the time the bike was added to the user's basket, October 24, 2023 16:38:20 UTC.
+Going back to the Splunk event log for the juicero index, I found the POST command to "/api/BasketItems" that matched the time the bike was added to the user's basket, October 24, 2023 16:38:20 UTC.
 
-I searched for all event logs in the juiceshop for the IP address used to add that basket item, 192.168.122.181, and saved it as "Potential Malicious Juice".
+I searched for all event logs in the juicero for the IP address used to add that basket item, 192.168.122.181, and saved it as "Potential Malicious Juice".
 
 ### Vulnerability:
 The exploit used the [HTTP parameter pollution](https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/04-Testing_for_HTTP_Parameter_Pollution) vulnerability in the juice-shop web application. It is a NodeJS web application using the ExpressJS framework, so there should be online resources on how to prevent this.

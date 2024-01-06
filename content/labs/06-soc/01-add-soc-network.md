@@ -11,7 +11,7 @@ The `SOC` network will have the IP address `192.168.3.0/24`. And, like the `DMZ`
 
 I will also allow the `SOC` network to access the `WAN` network (the `default` network in libvirt) and the `DMZ` network, but I won't give it access to the `LAN` networks.
 
-I think that most SOC teams would have some restrictions on their access to a larger network, but they would need to be able to access the internet to do research on threats and the `DMZ` network to access the `juiceshop` web server.
+I think that most SOC teams would have some restrictions on their access to a larger network, but they would need to be able to access the internet to do research on threats and the `DMZ` network to access the `juicero` web server.
 
 I think that, if there were other servers in the `DMZ` network that the SOC wasn't monitoring, then the firewall rules would need to be restricted to the servers being monitored by the SOC.
 

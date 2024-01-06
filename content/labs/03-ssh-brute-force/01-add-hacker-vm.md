@@ -3,9 +3,9 @@ title: 01 Add hacker VM
 type: docs
 ---
 
-I'm going to create a new VM called `hacker`, running [Kali Linux](https://www.kali.org/). This will act as a malicious user who is trying to exploit vulnerabilities in the `juiceshop` VM.
+I'm going to create a new VM called `hacker`, running [Kali Linux](https://www.kali.org/). This will act as a malicious user who is trying to exploit vulnerabilities in the `juicero` VM.
 
-Because `juiceshop` is communicating directly with users, and running the SSH service so that `sysadmin` can manage it, anyone can run scans on it and attempt to directly access it.
+Because `juicero` is communicating directly with users, and running the SSH service so that `sysadmin` can manage it, anyone can run scans on it and attempt to directly access it.
 
 Using the `hacker` VM, you can run common recon tasks to gain information about the open services, and attempt to access them.
 
@@ -28,10 +28,10 @@ I don't need to install an operating system with an `.iso` file. The disk image 
 
 I start the VM, and the pre-installed Kali Linux operating system starts. The login username and password are both `kali`.
 
-## Access juiceshop From hacker
-The `hacker` VM is connected to the same `default` virtual network as the other VMs, and gets leased an IP address from the DHCP service. I'm able to open a browser and connect to the `juiceshop` via `http://juiceshop`.
+## Access juicero From hacker
+The `hacker` VM is connected to the same `default` virtual network as the other VMs, and gets leased an IP address from the DHCP service. I'm able to open a browser and connect to the `juicero` via `http://juicero`.
 
-I'll be using the `hacker` VM to exploit vulnerabilities in the `juiceshop` server, and the `juice-shop` OWASP web application it's running. In the next step, I'll use the `hydra` login cracking tool pre-installed on Kali Linux to attempt to gain access to the SSH service running on `juiceshop`.
+I'll be using the `hacker` VM to exploit vulnerabilities in the `juicero` server, and the `juice-shop` OWASP web application it's running. In the next step, I'll use the `hydra` login cracking tool pre-installed on Kali Linux to attempt to gain access to the SSH service running on `juicero`.
 
 At this point, this is what the lab looks like with the new `hacker` VM added:
 ![diagram](../../diagrams/lab-03-ssh-brute-force.drawio.png)

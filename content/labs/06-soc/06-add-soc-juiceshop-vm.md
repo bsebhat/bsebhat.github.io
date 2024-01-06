@@ -1,6 +1,6 @@
 ---
-title: 06 Add soc-juiceshop VM
+title: 06 Add soc-juicero VM
 type: docs
 ---
 
-TODO: Add soc-juiceshop VM to SOC network for testing
+TODO: Add soc-juicero VM to SOC network for testing

@@ -3,16 +3,16 @@ title: 02 Password Policy
 type: docs
 ---
 
-The first layer of defense, blocking after multiple failed SSH login attempts on the `juiceshop`, is being handled by the `fail2ban` service. The next layer, strong passwords, will add another way to prevent brute-force SSH attacks.
+The first layer of defense, blocking after multiple failed SSH login attempts on the `juicero`, is being handled by the `fail2ban` service. The next layer, strong passwords, will add another way to prevent brute-force SSH attacks.
 
-I was able to create the `support` Linux user on `juiceshop` with a weak password: `babygirl`. It was near the top of the wordlist that `hacker` used. And it took a few seconds for the `hydra` login cracker to reach. When I created it, I got a warning that said:
+I was able to create the `support` Linux user on `juicero` with a weak password: `babygirl`. It was near the top of the wordlist that `hacker` used. And it took a few seconds for the `hydra` login cracker to reach. When I created it, I got a warning that said:
 ```
 BAD PASSWORD: The password fails the dictionary check - it is based on a dictionary word
 ```
 
 That's because I did it with the `sudo passwd support` command. If I logged in as `support` and tried to change my own password with the
 
-The CentOS Stream 9 operating system running on `juiceshop` uses the [cracklib](https://github.com/cracklib/cracklib) library to check if a password is in a dictionary. You can see the installed packages by running:
+The CentOS Stream 9 operating system running on `juicero` uses the [cracklib](https://github.com/cracklib/cracklib) library to check if a password is in a dictionary. You can see the installed packages by running:
 ```
 dnf list installed | grep cracklib
 ```
@@ -39,12 +39,12 @@ This line has several parts:
 
 That `pam_pwquality.so` module part, which uses the `cracklib` dictionary to check if the new password might appear in many wordlists used by login crackers, may be enough to prevent the SSH brute force attack that use tools, like the [hydra](https://en.wikipedia.org/wiki/Hydra_(software)) login cracking tool.
 
-However, when I (as the superuser `vmadmin` on `juiceshop`) set the password for that new user `support`, I was able to give it the weak password `babygirl`. It just gave me a warning message that it was found in the dictionary.
+However, when I (as the superuser `vmadmin` on `juicero`) set the password for that new user `support`, I was able to give it the weak password `babygirl`. It just gave me a warning message that it was found in the dictionary.
 
 I've heard that this is common in smaller and less formal organizations. It's better to give new accounts an easy to type first password, then suggest to the new users that they change it to a stronger one. However, this can be ignored by users, and the weak password can remain a huge vulnerability in the system.
 
 ## Change Password Policy
-*NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juiceshop` VM first, in case there's a misconfiguration. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
+*NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juicero` VM first, in case there's a misconfiguration. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
 I want to change the password requirements, so that when a password is changed, it must meet the password requirements I've chosen to use these requirements for passwords:
 ```
 1. At least 10 characters long.
@@ -136,9 +136,9 @@ sudo authselect select sssd
 ```
 
 ## Communicate New Password Policy
-A huge vulnerability in securing systems, like the server `juiceshop`, is humans. They have to remember and type passwords, and it's easier to keep using a simple one if they're not forced to stop.
+A huge vulnerability in securing systems, like the server `juicero`, is humans. They have to remember and type passwords, and it's easier to keep using a simple one if they're not forced to stop.
 
-And coming up with a strong password is a huge hastle. It would be helpful to provide a link to a reputable online password generator that can generate new passwords based on user defined criteria. One password generator is the 1Password Strong Password Generator at [https://1password.com/password-generator](https://1password.com/password-generator). New users to `juiceshop` can be given this link, and the password requirements needed to generate a random strong password to use on `juiceshop`.
+And coming up with a strong password is a huge hastle. It would be helpful to provide a link to a reputable online password generator that can generate new passwords based on user defined criteria. One password generator is the 1Password Strong Password Generator at [https://1password.com/password-generator](https://1password.com/password-generator). New users to `juicero` can be given this link, and the password requirements needed to generate a random strong password to use on `juicero`.
 
 I create a bash script at `/usr/local/bin/show_password_policy.sh`:
 ```
@@ -177,9 +177,9 @@ And I add this line to the beginning of the password section:
 ```
 password requisite pam_exec.so stdout /usr/local/bin/show_password_policy.sh
 ```
-The `pam_exec.so` module will execute that `show_password_policy.sh` shell script and the user will see it in the `stdout`. If they're using the `juiceshop` terminal or using SSH to login, it will print on the console.
+The `pam_exec.so` module will execute that `show_password_policy.sh` shell script and the user will see it in the `stdout`. If they're using the `juicero` terminal or using SSH to login, it will print on the console.
 
-*NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juiceshop` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.*
+*NOTE: This will only display when the user logs in with the console. Not when the user first logs in using a graphical desktop environment, like GNOME or KDE. But I think that's fine, because the `juicero` VM is configured as a server, is accessed from its direct terminal or via SSH, and doesn't use a desktop environment.*
 
 And, because I changed the custom profile's `system-auth` file, I select it again to reload it:
 ```
@@ -227,9 +227,9 @@ sudo passwd --expire jim
 
 This means that the next time someone logs in with `jim` and that initial password, they will have to immediately change it to a new password that matches those password requirements:
 
-To test it out, you can SSH into `juiceshop` as `jim` using the initial password:
+To test it out, you can SSH into `juicero` as `jim` using the initial password:
 ```
-ssh jim@juiceshop
+ssh jim@juicero
 ```
 
 Because this is the first time, you should see a system message saying you are required to change the password. You'll be asked to re-enter the current password (the initial one):

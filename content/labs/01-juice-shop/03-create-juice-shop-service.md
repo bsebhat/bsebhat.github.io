@@ -7,7 +7,7 @@ type: docs
 I want the Juice Shop web application to start automatically when the machine starts, after the network connection has been established. I'll create a systemd service and enable it so that it runs on startup.
 
 ## Create systemd service for running web application
-I'll create a systemd service on the `juiceshop` VM by creating a systemd service file `/lib/systemd/system/juice-shop.service`:
+I'll create a systemd service on the `juicero` VM by creating a systemd service file `/lib/systemd/system/juice-shop.service`:
 ```
 [Unit]
 Description=OWASP juice-shop web app service
@@ -28,7 +28,7 @@ WantedBy=multi-user.target
 Here's what some of the lines mean.
 
 ### After=network.target
-This is a systemd [network configuration synchronization point](https://systemd.io/NETWORK_ONLINE/), saying the service should run after the network management stack has started. In the case of `juiceshop`, that's the `NetworkManager` service.
+This is a systemd [network configuration synchronization point](https://systemd.io/NETWORK_ONLINE/), saying the service should run after the network management stack has started. In the case of `juicero`, that's the `NetworkManager` service.
 
 ### Type=simple
 This makes the service a "simple service". Meaning the main `npm` process will stay in the foreground and not the background.
@@ -83,5 +83,5 @@ So, I enable it so it runs when the machine starts:
 sudo systemctl enable juice-shop.service
 ```
 
-When I restart the `juiceshop` VM, and wait for it to show the login prompt, the web app should be accessible at `http://juiceshop:3000`.
+When I restart the `juicero` VM, and wait for it to show the login prompt, the web app should be accessible at `http://juicero:3000`.
 

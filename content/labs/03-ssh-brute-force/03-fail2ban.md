@@ -40,17 +40,17 @@ I start and enable the service:
 sudo systemctl enable --now fail2ban.service
 ```
 
-Then, from the `hacker` VM, I run the same `hydra` command to brute force the `support` user account on `juiceshop`:
+Then, from the `hacker` VM, I run the same `hydra` command to brute force the `support` user account on `juicero`:
 ```
-hydra -l support -P /usr/share/wordlists/rockyou.txt ssh://juiceshop
-```
-
-The password was still cracked. However, when I attempted to login to `juiceshop` from `hacker`, I got this message:
-```
-ssh: connect to host juiceshop port 22: Connection refused
+hydra -l support -P /usr/share/wordlists/rockyou.txt ssh://juicero
 ```
 
-The `hacker` VM's IP address has been blocked by the `juiceshop` server. When I check the [nftables](https://wiki.nftables.org/wiki-nftables/index.php/What_is_nftables%3F) on the `juiceshop` server:
+The password was still cracked. However, when I attempted to login to `juicero` from `hacker`, I got this message:
+```
+ssh: connect to host juicero port 22: Connection refused
+```
+
+The `hacker` VM's IP address has been blocked by the `juicero` server. When I check the [nftables](https://wiki.nftables.org/wiki-nftables/index.php/What_is_nftables%3F) on the `juicero` server:
 ```
 sudo nft list ruleset
 ```
@@ -104,8 +104,8 @@ f2b_unban 192.168.122.226
 ``` 
 Because they need to run as sudo, you'll need to be a superuser and enter your password.
 
-So the current configuration of `fail2ban` was able to block the `hacker` IP address, but it didn't stop its multiple failed login attempts. Now `hacker` can use a proxy server or virtual private network (VPN) to access `juiceshop` from a new source IP address, and establish an SSH connection using that `support` password it discovered.
+So the current configuration of `fail2ban` was able to block the `hacker` IP address, but it didn't stop its multiple failed login attempts. Now `hacker` can use a proxy server or virtual private network (VPN) to access `juicero` from a new source IP address, and establish an SSH connection using that `support` password it discovered.
 
 So it looks like relying on a single solution or layer of defense can be insufficient when the attacker has access to penetration testing tools like `hydra`.
 
-In the next step, I'll come up with multiple ways to prevent the `hacker` VM from gaining access to the `juiceshop` server via its ["attack surfaces"](https://www.ibm.com/topics/attack-surface), like the SSH service and HTTP service.
+In the next step, I'll come up with multiple ways to prevent the `hacker` VM from gaining access to the `juicero` server via its ["attack surfaces"](https://www.ibm.com/topics/attack-surface), like the SSH service and HTTP service.

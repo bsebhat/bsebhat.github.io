@@ -35,6 +35,6 @@ During installation, I configured the pfSense firewall software to consider the 
 
 The devices on the "LAN" interface (which is connected to the virtual network I also named `LAN`) are, for now, just the `sysadmin` VM. By default, the `LAN` network is given the most permissive firewall rules. This means I can use any protocol. I can ping other machines using the ICMP protocol. I can access websites on the internet using TCP or UDP. I'm going to leave that, because I plan on using the `sysadmin` as a highly-trusted machine in the labs.
 
-However, the next thing I'll do is add the `juiceshop` to the `LAN` network. I will configure the `pfsense` firewall VM to allow other VMs on the "WAN" (or `default` virtual network) to continue accessing its web application. But not directly.
+However, the next thing I'll do is add the `juicero` to the `LAN` network. I will configure the `pfsense` firewall VM to allow other VMs on the "WAN" (or `default` virtual network) to continue accessing its web application. But not directly.
 
-Then, I'll show why keeping the `sysadmin` and `juiceshop` under the same permissive firewall rules of the `LAN` network might be a bad idea.
+Then, I'll show why keeping the `sysadmin` and `juicero` under the same permissive firewall rules of the `LAN` network might be a bad idea.

@@ -3,7 +3,7 @@ title: 01 Defense In Depth
 type: docs
 ---
 
-I had tried preventing the `hacker` VM from attacking the `juiceshop` server's SSH service with a login cracker tool called `hydra`. I installed a service that blocks an IP address if it has 3 failed SSH login attempts. But it wasn't able to stop `hacker` from completing its brute-force attack, just block it from establishing a new SSH connection.
+I had tried preventing the `hacker` VM from attacking the `juicero` server's SSH service with a login cracker tool called `hydra`. I installed a service that blocks an IP address if it has 3 failed SSH login attempts. But it wasn't able to stop `hacker` from completing its brute-force attack, just block it from establishing a new SSH connection.
 
 This may require multiple defense strategies working together to effectively reduce the risk of attack using this SSH service. The best solution would be to eliminate it, but I want to use it from the `sysadmin`.
 
@@ -19,12 +19,12 @@ The next layer requires that the passwords expire. So when the user logs in the 
 
 And the next layer will ban IP addresses if they make 3 or more failed SSH login attempts.
 
-These multiple defense strategies  will make it harder for attacks to access the `juiceshop` server's SSH service. If one fails, another will an additional layer of difficulty to the attack. This is using the cybersecurity principle of ["defense in depth"](https://www.cyberark.com/what-is/defense-in-depth/).
+These multiple defense strategies  will make it harder for attacks to access the `juicero` server's SSH service. If one fails, another will an additional layer of difficulty to the attack. This is using the cybersecurity principle of ["defense in depth"](https://www.cyberark.com/what-is/defense-in-depth/).
 
-I've got a service installed, `fail2ban`, that blocks IP addresses if they have multiple failed SSH login attempts. In the next step, I'll implement a password policy for the `juiceshop` server, and communicate the requirements so that users know how to create strong passwords.
+I've got a service installed, `fail2ban`, that blocks IP addresses if they have multiple failed SSH login attempts. In the next step, I'll implement a password policy for the `juicero` server, and communicate the requirements so that users know how to create strong passwords.
 
 
 **NOTE:** In the next lab, I'll add another layer of defense: Network Segmentation
-Currently, the network topology consist of one network: the `default` network. Users on `hacker` and `customer` communicate on it, and `sysadmin` and `juiceshop` communicate with each other on it. In the next lab, I'll create isolated networks for the `juiceshop` web server and the `sysadmin` workstation.
+Currently, the network topology consist of one network: the `default` network. Users on `hacker` and `customer` communicate on it, and `sysadmin` and `juicero` communicate with each other on it. In the next lab, I'll create isolated networks for the `juicero` web server and the `sysadmin` workstation.
 
 I'll add a firewall server that connects the `default` virtual network with the new isolated network segments. It will allow traffic between them, but under certain restricted firewall rules.

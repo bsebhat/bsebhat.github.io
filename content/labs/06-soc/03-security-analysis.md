@@ -5,16 +5,16 @@ type: docs
 
 The current lab involves two servers working together to provide users on the default virtual network access to the juice-shop website. The `pfsense` VM acts as a firewall and gateway between the internal isolated subnets (`LAN`, `DMZ`, and `SOC`) from the `default` network. 
 
-The `pfsense` server receives HTTP traffic on port 80, and redirects that traffic to the `juiceshop` at port 3000. The NodeJS juice-shop web app receives the traffic on port 3000, and responds to the request based on the URL path and the payload sent.
+The `pfsense` server receives HTTP traffic on port 80, and redirects that traffic to the `juicero` at port 3000. The NodeJS juice-shop web app receives the traffic on port 3000, and responds to the request based on the URL path and the payload sent.
 
-## juiceshop
-One major asset is the `juiceshop` web server with CentOS Stream 9 operating system installed. It has the juice-shop web application running on a systemd service, and the NodeJS code for the web application is located at `/opt/juice-shop`. In addition to the root account, it has a vmadmin user account with sudo privileges. When the user on `sysadmin` needs to manage the web application on `juiceshop`, they use the SSH service to login as the vmadmin account. 
+## juicero
+One major asset is the `juicero` web server with CentOS Stream 9 operating system installed. It has the juice-shop web application running on a systemd service, and the NodeJS code for the web application is located at `/opt/juice-shop`. In addition to the root account, it has a vmadmin user account with sudo privileges. When the user on `sysadmin` needs to manage the web application on `juicero`, they use the SSH service to login as the vmadmin account. 
 
 ### juice-shop NodeJS Web App
 It is a NodeJS web application that uses the ExpressJS backend web framework and Angular frontend framework.  several deprecated libraries It's a  The log data for the web app is at `/opt/juices-shop/logs`. When clients access the NodeJS server, their HTTP requests are logged in access logs. 
 
 ### juice-shop Database
-The database used is sqlite, and is located at `/opt/juice-shop/data/juiceshop.sqlite`. It has the following tables:
+The database used is sqlite, and is located at `/opt/juice-shop/data/juicero.sqlite`. It has the following tables:
 ```
 TODO: list database tables
 ```

@@ -3,12 +3,12 @@ title: 03 Summary
 type: docs
 ---
 
-In this lab, I was able to create a custom password policy to try to prevent Linux accounts on `juiceshop` from having weak passwords. 
+In this lab, I was able to create a custom password policy to try to prevent Linux accounts on `juicero` from having weak passwords. 
 
 
-The CentOS operating system that `juiceshop` runs would have, by default, stopped the user from choosing that weak password. Because CentOS Stream 9 used the [cracklib](https://github.com/cracklib/cracklib) library and dictionary to ensure users can't choose passwords that appear in most common dictionaries. I think this helps prevent regular users from choosing passwords that can easily be cracked by tools using brute force and large password wordlists/dictionaries.
+The CentOS operating system that `juicero` runs would have, by default, stopped the user from choosing that weak password. Because CentOS Stream 9 used the [cracklib](https://github.com/cracklib/cracklib) library and dictionary to ensure users can't choose passwords that appear in most common dictionaries. I think this helps prevent regular users from choosing passwords that can easily be cracked by tools using brute force and large password wordlists/dictionaries.
 
-However, Linux superusers on the `juiceshop` server, like `vmadmin` and `root`, can bypass this and give extremely weak passwords to accounts. If the users of those accounts don't change them, that weak password found in many popular wordlists will remain a vulnerability in the system.
+However, Linux superusers on the `juicero` server, like `vmadmin` and `root`, can bypass this and give extremely weak passwords to accounts. If the users of those accounts don't change them, that weak password found in many popular wordlists will remain a vulnerability in the system.
 
 An important part of having a good password policy is to make it a system requirement, communicate the requirements to all staff and users, have admin and users follow them, and require users to change the initial passwords for their accounts by making them expire on next login. 
 

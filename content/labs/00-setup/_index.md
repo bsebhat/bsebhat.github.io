@@ -10,9 +10,9 @@ By default, when I install the VM software, a virtual network called `default` w
 
 One VM will be called `sysadmin`. It will have the CentOS Stream 9 Linux operating system installed, with a virtual network interface card (NIC) connected to the `default` network, using the DHCP service provided by that network to get a IPv4 address for that NIC, and it will have the GNOME desktop environment installed.
 
-The other VM will be called `juiceshop`. It will also have CentOS Stream 9 Linux installed. It will also have a NIC connected to the `default` network, but I'll give it a static IP address. And it won't need a desktop environment. Most of the time, I will manage it from the `sysadmin` VM via its SSH service.
+The other VM will be called `juicero`. It will also have CentOS Stream 9 Linux installed. It will also have a NIC connected to the `default` network, but I'll give it a static IP address. And it won't need a desktop environment. Most of the time, I will manage it from the `sysadmin` VM via its SSH service.
 
-By the end of this lab, I'll test that I am able to communicate between the VMs via the `default` virtual network, and that I can refer to the `juiceshop` VM by its hostname, and not just its IPv4 address.
+By the end of this lab, I'll test that I am able to communicate between the VMs via the `default` virtual network, and that I can refer to the `juicero` VM by its hostname, and not just its IPv4 address.
 
 Here's a diagram of what this lab will have:
 ![libvirt diagram](../diagrams/lab-00-setup.drawio.png)

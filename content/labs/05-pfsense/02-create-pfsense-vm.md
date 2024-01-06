@@ -47,7 +47,7 @@ Because I'm giving the `pfsense` interface connected to the `default` virtual ne
 virsh net-edit default
 ```
 
-Because I will be moving the `juiceshop` off the `default` network, while I'm adding the new `pfsense` as a gateway, I'll remove this `<host>` entry for `juiceshop` and add a new `<host>` for `pfsense` and its IP address.
+Because I will be moving the `juicero` off the `default` network, while I'm adding the new `pfsense` as a gateway, I'll remove this `<host>` entry for `juicero` and add a new `<host>` for `pfsense` and its IP address.
 
 Which, as far as editing goes, just means I'm changing the existing entry to map the `pfsense` IP address `192.168.122.10` to be the hostname for the `pfsense` VM.
 
@@ -61,4 +61,4 @@ virsh net-start default
 ```
 
 ## Next, Move VMs to LAN
-Next, I'll connect the `sysadmin` VM to the `LAN` network, configure it to use this `pfsense` server as a gateway and DNS server, and use the pfSense webConfigurator admin tool. I'll use that static IP address I gave the `pfsense` interface connected to the `LAN` network, `192.168.1.1`, as the gateway and DNS ip address when updating the `sysadmin` and `juiceshop` network settings.
+Next, I'll connect the `sysadmin` VM to the `LAN` network, configure it to use this `pfsense` server as a gateway and DNS server, and use the pfSense webConfigurator admin tool. I'll use that static IP address I gave the `pfsense` interface connected to the `LAN` network, `192.168.1.1`, as the gateway and DNS ip address when updating the `sysadmin` and `juicero` network settings.
