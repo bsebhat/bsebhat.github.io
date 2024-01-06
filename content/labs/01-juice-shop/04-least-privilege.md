@@ -1,5 +1,5 @@
 ---
-title: 04 Create Service User
+title: 04 Least Privilege
 type: docs
 ---
 

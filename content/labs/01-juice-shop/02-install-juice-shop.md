@@ -1,5 +1,5 @@
 ---
-title: 01 Install juice-shop
+title: 02 Install juice-shop
 type: docs
 ---
 

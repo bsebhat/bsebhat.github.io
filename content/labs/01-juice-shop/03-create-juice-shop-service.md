@@ -1,5 +1,5 @@
 ---
-title: 02 Create juice-shop.service
+title: 03 Create juice-shop.service
 type: docs
 ---
 
