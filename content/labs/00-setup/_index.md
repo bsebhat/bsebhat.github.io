@@ -1,5 +1,5 @@
 ---
-title: Lab 00 - libvirt
+title: Lab 00 - Setup
 type: docs
 next: 01-install-vm-software
 ---
@@ -15,6 +15,6 @@ The other VM will be called `juiceshop`. It will also have CentOS Stream 9 Linux
 By the end of this lab, I'll test that I am able to communicate between the VMs via the `default` virtual network, and that I can refer to the `juiceshop` VM by its hostname, and not just its IPv4 address.
 
 Here's a diagram of what this lab will have:
-![libvirt diagram](../diagrams/lab-00-libvirt.drawio.png)
+![libvirt diagram](../diagrams/lab-00-setup.drawio.png)
 
 In the first step, I'll install the software that will help make managing the VMs an virtual networks easier: `qemu`, `libvirt`, and `virt-manager`.

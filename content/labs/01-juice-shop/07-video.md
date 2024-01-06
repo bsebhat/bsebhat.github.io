@@ -1,5 +1,5 @@
 ---
-title: 06 Video
+title: 07 Video
 type: docs
 ---
 

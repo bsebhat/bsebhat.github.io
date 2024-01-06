@@ -22,13 +22,18 @@ There's also a `cpu-checker` apt package that provides the `kvm-ok` command for 
 sudo apt install -y cpu-checker
 ```
 
-Running `kvm-ok` outputs gets the output:
+The `cpu-checker` package includes a tool for easily determining if your processor supports KVM accelertion called `kvm-ok`:
+```
+kvm-ok
+```
+
+Running this program shows this output:
 ```
 INFO: /dev/kvm exists
 KVM acceleration can be used
 ```
 
-If other VM hypervisors, like VMWare workstation or VirtualBox, are installed they may already be taking advantage of virtualization on the system. `kvm-ok` can check for that.
+NOTE: If other VM hypervisors, like VMWare workstation or VirtualBox, are installed they may already be taking advantage of virtualization on the system. `kvm-ok` can check for that.
 
 ## Install VM management packages
 Next, install the following packages:
@@ -36,7 +41,7 @@ Next, install the following packages:
 sudo apt install -y qemu-kvm virt-manager virtinst libvirt-clients bridge-utils libvirt-daemon-system
 ```
 
-This installs QEMU, the GUI desktop VM management app `virt-manager`, and the `libvirt` virtualization library and API, and the `libvirtd` system service. These will provide tools that make it easier to manager virtual machines, networks, and resources.
+That command installs severa packages, incuding QEMU/KVM, the GUI desktop VM management app `virt-manager`, and the `libvirt` virtualization library and API, and the `libvirtd` system service. These will provide tools that make it easier to manager virtual machines, networks, and resources.
 
 ## Add User To kvm libvirt Groups
 Check if your account is added to the `libvirt` and `kvm` groups:

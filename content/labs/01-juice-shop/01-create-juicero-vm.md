@@ -1,5 +1,5 @@
 ---
-title: 04 Create juiceshop VM
+title: 01 Create juicero VM
 type: docs
 ---
 

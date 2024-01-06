@@ -1,5 +1,5 @@
 ---
-title: 05 Password Policy
+title: 02 Password Policy
 type: docs
 ---
 
