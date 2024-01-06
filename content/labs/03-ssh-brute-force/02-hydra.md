@@ -1,5 +1,5 @@
 ---
-title: 02 SSH Brute Force
+title: 02 Hydra
 type: docs
 ---
 

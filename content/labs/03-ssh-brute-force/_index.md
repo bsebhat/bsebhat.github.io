@@ -1,5 +1,5 @@
 ---
-title: Lab 03 - Password Policy
+title: Lab 03 - SSH Brute Force
 type: docs
 next: 01-add-hacker-vm
 ---
@@ -15,6 +15,10 @@ The VMs all had virtual network interface cards (NICs) connected to the `default
 
 In this lab, I'll start by adding a new VM called `hacker`. It will have the operating system [Kali Linux](https://www.kali.org/) installed. It's a Linux distribution that has a lot of popular [penetration testing](https://en.wikipedia.org/wiki/Penetration_test) tools installed. I'll use it in this and future labs to demonstrate how vulnerabilities in the `juiceshop` server and `juice-shop` web application can be exploited.
 
-I'll use `hacker` to run a SSH login cracking tool to get a Linux user account's password on `juiceshop`, and use several security practices to prevent that from happening again.
+I'll create a new Linux user account on `juiceshop` called `support`, and give it a weak initial password: `babygirl`.
 
-In the first step, I'll create the `hacker` VM.
+Then, with Kali Linux instaled on `hacker`, I'll use one of the pre-installed tools to run multiple SSH login attempts on the `juiceshop` web server. It will find the weak password, and successfully login the the SSH service.
+
+Then, I'll install a service on `juiceshop` that blocks the IP address of devices that perform multiple failed login attempts.
+
+In the first step, I'll create (or, in this case, import) that `hacker` VM with Kali Linux.

@@ -1,5 +1,5 @@
 ---
-title: Lab 08 - Active Directory
+title: Lab 09 - Active Directory
 type: docs
 next: 01-setup-lan-network
 ---

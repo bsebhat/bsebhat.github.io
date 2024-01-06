@@ -1,5 +1,5 @@
 ---
-title: Lab 06 - Splunk
+title: Lab 08 - Splunk
 type: docs
 next: 01-add-splunk-vm
 ---

@@ -1,5 +1,5 @@
 ---
-title: Lab 09 - LDAP
+title: Lab 10 - LDAP
 type: docs
 next: 01-add-nextcloud-vm
 ---

@@ -24,7 +24,7 @@ cracklib-dicts.x86_64                 2.9.6-27.el9                              
 ```
 
 
-## PAM Password Requirements
+## Current Password Policy
 The Pluggable Authentication Module (PAM) in the operating system is configured to enforce that when users set new passwords, they cannot be found in the dictionary used by `cracklib-dicts`.
 
 This is configured in the `/etc/pam.d/system-auth` file, in one of the lines that begin with `password`:
@@ -37,16 +37,27 @@ This line has several parts:
 3. `pam_pwquality.so`: This is the PAM module used to enforce password quality requirements. It's in here that the `cracklib` library is used to ensure passwords aren't in a dictionary. It used to be `pam_cracklib.so`.
 4. `local_users_only`: This applies to local users only, not remote users. Remote users are users that have authentication managed by a seperate system. This can be with a server running Lightweight Directory Access Protocol (LDAP) or Kerberos. Like a user from an Active Directory domain that the CentOS server has joined.
 
-This alone, requiring that a password pass the `cracklib` check, may be enough to prevent the SSH brute force attack that used the `hydra` login cracking tool.
+That `pam_pwquality.so` module part, which uses the `cracklib` dictionary to check if the new password might appear in many wordlists used by login crackers, may be enough to prevent the SSH brute force attack that use tools, like the [hydra](https://en.wikipedia.org/wiki/Hydra_(software)) login cracking tool.
 
 However, when I (as the superuser `vmadmin` on `juiceshop`) set the password for that new user `support`, I was able to give it the weak password `babygirl`. It just gave me a warning message that it was found in the dictionary.
 
 I've heard that this is common in smaller and less formal organizations. It's better to give new accounts an easy to type first password, then suggest to the new users that they change it to a stronger one. However, this can be ignored by users, and the weak password can remain a huge vulnerability in the system.
 
-## Set Password Strength Requirement
-*NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juiceshop` VM first. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
+## Change Password Policy
+*NOTE: Because you're changing important system settings, it's a good idea to create a snapshot of the `juiceshop` VM first, in case there's a misconfiguration. You can shut it down, go to the View > Snaphots in the menu, and click the plus sign button.*
+I want to change the password requirements, so that when a password is changed, it must meet the password requirements I've chosen to use these requirements for passwords:
+```
+1. At least 10 characters long.
+2. At least one digit.
+3. At least one uppercase letter.
+4. At least one special character.
+5. At least one uppercase letter.
+6. Must not appear in a dictionary of commonly used passwords. 
+```
 
-### Authselect
+To do this, I'll need to change the `/etc/pam.d/system-auth` file. There is a line that configures what must happen when a user changes a password. However, because this a very important file for the system, I'll be using the [Authselect](https://github.com/authselect/authselect) service installed on the CentOS operating system. This allows me to create a new custom profile, with a seperate version of important system configuration files (like `system-auth`). When I use that profile, I can make changes to `system-auth` while still having the ability to easily rollback to the previous configuration.
+
+### Create Custom Authselect Profile
 The password requirements can be defined in the `/etc/pam.d/system-auth` file. However, that file and authentication configuration files in the `/etc/pam.d` directory are managed by the [Authselect](https://github.com/authselect/authselect) service. It's a tool that standardizes the configuration of sensitive authentication configuration files like the `/etc/pam.d/system-auth` file.
 
 Authselect uses profiles to manage different ways of configuring authentication for a system. I can see a list of profiles with this command:
@@ -93,7 +104,7 @@ I can select that new custom profile:
 sudo authselect select custom/strong-passwords
 ```
 
-## Edit system-auth In New Custom Authselect Profile
+### Edit system-auth
 I can then edit the `system-auth` file in my custom profile `strong-passwords`:
 ```
 sudo vim /etc/authselect/custom/strong-passwords/system-auth
@@ -124,7 +135,7 @@ If I decide I want to go back to the previous Authselect profile, `sssd`, I can 
 sudo authselect select sssd
 ```
 
-## Communicate Password Policy
+## Communicate New Password Policy
 A huge vulnerability in securing systems, like the server `juiceshop`, is humans. They have to remember and type passwords, and it's easier to keep using a simple one if they're not forced to stop.
 
 And coming up with a strong password is a huge hastle. It would be helpful to provide a link to a reputable online password generator that can generate new passwords based on user defined criteria. One password generator is the 1Password Strong Password Generator at [https://1password.com/password-generator](https://1password.com/password-generator). New users to `juiceshop` can be given this link, and the password requirements needed to generate a random strong password to use on `juiceshop`.
@@ -185,7 +196,7 @@ Now, those authentication configuration files I edited in my custom Authselect p
 sudo authselect select sssd
 ```
 
-## Test New User Password Policy
+## Test New Password Policy
 Previously, I used the superuser `vmadmin` to create a weak password for the new user `support`, and allowed them to keep using it after they logged in. This created an attack surface for `hacker` to exploit, and the password was discovered using a brute force login cracking tool.
 
 This time, I will create a new user with a strong password that follows the password policy I created.

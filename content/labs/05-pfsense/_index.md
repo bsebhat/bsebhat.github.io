@@ -1,5 +1,5 @@
 ---
-title: Lab 04 - pfSense
+title: Lab 05 - pfSense
 type: docs
 next: 01-create-lan-network
 ---
@@ -11,7 +11,7 @@ The `sysadmin` is a Linux workstation that manages the `juiceshop` server via SS
 And the `customer` is a Linux workstation used by a customer of Juice Shop, using the Juice Shop web application running on the `juiceshop` VM.
 
 The VMs all had virtual network interface cards (NICs) connected to the `default` virtual network. Here's a diagram of all the VMs connected to that same `default` network:
-![diagram](../diagrams/lab-03-password.drawio.png)
+![diagram](../diagrams/lab-03-ssh-brute-force.drawio.png)
 
 In the previous lab, I mentioned the security concept of "defense in depth". Using multiple multiple layers of solutions to a vulnerability, so that if an attacker has to get past more than one obstacle to exploit a vulnerability or "attack surface".
 

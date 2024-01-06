@@ -110,7 +110,7 @@ Next, I'm going to add the `pfsense` VM to the lab, connect it to the `LAN` and 
 
 ## Network Topology
 This is what the network looked like before adding the `LAN` network:
-![diagram](../../diagrams/lab-03-password.drawio.png)
+![diagram](../../diagrams/lab-03-ssh-brute-force.drawio.png)
 
 This is what the network topology will look like with the `LAN` network and the `sysadmin` and `juiceshop` VMs moved:
-![diagram](../../diagrams/lab-04-pfsense-LAN.drawio.png)
+![diagram](../../diagrams/lab-05-pfsense-LAN.drawio.png)

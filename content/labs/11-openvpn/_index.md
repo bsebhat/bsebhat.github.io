@@ -1,5 +1,5 @@
 ---
-title: Lab 10 - OpenVPN
+title: Lab 11 - OpenVPN
 type: docs
 ---
 
