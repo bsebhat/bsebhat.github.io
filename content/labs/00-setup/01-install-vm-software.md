@@ -33,6 +33,8 @@ INFO: /dev/kvm exists
 KVM acceleration can be used
 ```
 
+You might have a processor that can support virtualization, but requires changing your system's configuration in BIOS. You can try googling your computer's model an the word "virtualiztion" (example ["HP Envy virtualization"](https://www.google.com/search?q=hp+envy+virtualization)).
+
 NOTE: If other VM hypervisors, like VMWare workstation or VirtualBox, are installed they may already be taking advantage of virtualization on the system. `kvm-ok` can check for that.
 
 ## Install VM management packages

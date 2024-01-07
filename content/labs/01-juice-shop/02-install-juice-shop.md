@@ -15,7 +15,7 @@ ssh vmadmin@juicero
 
 Now I can use the `juicero` as if I was working on it directly. However, if I change things like certain network settings, the SSH connection will end. For now, I'm just installing the juice-shop web application.
 
-## Download juice-shop v16 From GitHub
+## Download juice-shop v16
 juice-shop version 16.0.0 is currently the latest version. It has different packaged files for download from its GitHub repository. They are for different platforms (Windows, Linux, Mac) and different versions of NodeJS (version 18, 19, 20, 21).
 
 I'll be using the Linux x64 version with NodeJS version 20. You can download the packaged version from its GitHub releases page at `https://github.com/juice-shop/juice-shop/releases/tag/v16.0.0`.
@@ -24,7 +24,7 @@ wget https://github.com/juice-shop/juice-shop/releases/download/v16.0.0/juice-sh
 ```
 This packaged release doesn't require running `npm install` the first time. This will save a few minutes.
 
-## Install NodeJS
+## Install NodeJS v20
 The node version supported by this juice-shop release is included in the file name: node version 20. You can install this version using CentOS's package manager dnf:
 ```
 sudo dnf module -y install nodejs:20/common
@@ -84,9 +84,9 @@ Within a few seconds, it should say it's running on port 3000. I can go on the `
 Now, the juice-shop web application running on port 3000 can be accessed by the `sysadmin` VM when the address `http://juicero:3000` is entered in a web browser.
 
 ## Try Using Juice Shop 
-As a quick test, you can submit anonymous customer feedback. Go to `http://juicero/#/contact` to access the Customer Feedback form and fill out the form. You just need to enter something in the Comment field, solve the CAPTCHA math problem, and click Submit.
+As a quick test, you can submit anonymous customer feedback. Go to `http://juicero:3000/#/contact` to access the Customer Feedback form and fill out the form. You just need to enter something in the Comment field, solve the CAPTCHA math problem, and click Submit.
 
-After submitting feedback, you can view it by logging in using the built-in administrator account. The username is `admin@juice-sh.op` and the password is `admin123`. Go to the admin panel at `http://juicero/#/administration` at the end of the Customer Feedback section.
+After submitting feedback, you can view it by logging in using the built-in administrator account. The username is `admin@juice-sh.op` and the password is `admin123`. Go to the admin panel at `http://juicero:3000/#/administration` at the end of the Customer Feedback section.
 
 You can also create a new user account by clicking the "Account" link in the toolbar, clicking "Login", and clicking the "Not yet a member?" link. You can use a fake email, and enter anything for the security question answer. Then, login using those credentials.
 

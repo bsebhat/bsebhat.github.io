@@ -1,5 +1,5 @@
 ---
-title: Lab 07 - Security Incident
+title: Lab 07 - Incident Response
 type: docs
 next: 01-broken-access-control
 ---
