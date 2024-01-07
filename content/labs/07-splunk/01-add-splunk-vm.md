@@ -3,7 +3,9 @@ title: 01 Add splunk VM
 type: docs
 ---
 
-The `splunk` VM will run the Splunk server, and be accessed by the `soc-analyst` and `sysadmin` desktops.
+I want to have a [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) server so the SOC team can investigate incidents using log data without having to look at huge blocks of log data.
+
+The `splunk` VM will run the [Splunk Enterprise](https://www.splunk.com/en_us/download/splunk-enterprise.html) server (free trial), and be accessed by the `soc-analyst` and `sysadmin` desktops.
 
 I'll add the `splunk` server VM similar to the `juicero` in the `DMZ` network, with a static IP address. Except the `splunk` VM won't need a port redirect configured, because it won't be accessible to public users in the `WAN` network.
 
@@ -26,7 +28,7 @@ sudo firewall-cmd --reload
 ```
 
 
-## Add splunk hostname to pfSense DNS Resolver
+## Add Hostname to DNS Resolver
 Because the `splunk` server doesn't use DHCP, I need to manually add the hostname and static IP to the pfSense DNS Resolver service.
 
 ## Install Splunk Enterprise
@@ -44,9 +46,11 @@ I then SSH into the `splunk` VM and install the package:
 sudo rpm -i <splunk-enerprise-file>.rpm
 ```
 
-## Access Splunk Web Interface
-Running the Splunk server starts the Splunk Web interface at `http://splunk:8000`. 
-
+## Change /opt/splunk Owner
+Because the systemd service will run Splunk using the user splunk, I make sure all files in the `/opt/splunk` directory are owned by splunk:
+```
+sudo chown -R splunk:splunk /opt/splunk
+```
 
 ## Enable Splunk service
 On the `splunk` VM, you can create a systemd service using the spunk command at `/opt/splunk/bin/splunk`:
@@ -54,10 +58,7 @@ On the `splunk` VM, you can create a systemd service using the spunk command at 
 sudo /opt/splunk/bin/splunk enable boot-start -user splunk  -systemd-managed 1
 ```
 
-Because the systemd service will run Splunk using the user splunk, I make sure all files in the `/opt/splunk` directory are owned by splunk:
-```
-sudo chown -R splunk:splunk /opt/splunk
-```
+I'll have to agree to the Splunk terms and conditions, an provide an admin username and password.
 
 This will create a system file at `/etc/systemd/system/Splunkd.service`, enabled to start on next boot, run by the user splunk, but not started.
 
@@ -66,5 +67,6 @@ Next, start it:
 sudo systemctl start Splunkd.service
 ```
 
-I go to `http://splunk:8000` and login 
+I go to `http://splunk:8000` and login, using the admin username and password I provided earlier.
 
+Next, I'll need to configure Splunk Enterprise server on `splunk` to receive data from `juicero`, and install a [Splunk Universal Forwarder](https://www.splunk.com/en_us/download/universal-forwarder.html) service to forward that data.

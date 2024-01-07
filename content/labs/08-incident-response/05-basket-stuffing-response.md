@@ -36,7 +36,7 @@ JOIN
 JOIN 
     Products ON BasketItems.ProductId = Products.id
 WHERE 
-    Users.email = 'juicefan@example.com';
+    Users.email = 'customer@example.com';
 ```
 
 That returned these results:
