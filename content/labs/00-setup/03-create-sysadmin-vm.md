@@ -3,7 +3,6 @@ title: 03 Create sysadmin VM
 type: docs
 ---
 
-## Create sysadmin VM
 The first VM I create will be called `sysadmin`. It's the VM that I'll use as a "systems administrator". This will be a workstation with a GUI windows manager that I use to manage other servers via SSH. It will have the CentOS Linux operating system.
 
 I download the CentOS Stream 9 ISO file from [https://centos.org/centos-stream/](https://centos.org/centos-stream/).
